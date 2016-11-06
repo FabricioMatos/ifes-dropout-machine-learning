@@ -16,15 +16,35 @@ from pandas.tools.plotting import scatter_matrix
 from pandas import DataFrame
 from sklearn.preprocessing import StandardScaler
 from sklearn import cross_validation
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.pipeline import Pipeline
+from sklearn.grid_search import GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 
+
+#global variables
 start = time.clock()
+imageidx = 1
+ndigits = 3
+
 
 def pause():
     os.system('read -p "Press Enter to continue..."')
 
-def duration(start):
+def duration():
+    global start
+    
     end = time.clock()
     print 'Duration: %.2f ' % (end - start)
+    
+    start = time.clock()
 
 #load Dataframe from file/url
 def loadDataframe(filename):
@@ -70,12 +90,10 @@ def descriptiveStatistics(dataframe, outputPath):
 
 # Data visualizations
 def dataVisualizations(dataframe, outputPath):
-
+    global imageidx
+    
     ncolumns = dataframe.shape[1]
     
-    imageidx = 1
-    ndigits = 3
-
     print("=== Data visualizations ===")
 
     # histograms
@@ -144,8 +162,53 @@ def splitoutValidationDataset(dataframe):
 
     return (X_train, X_validation, Y_train, Y_validation)
     
+
+
+# Evaluate Algorithms
+def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
+    global imageidx
     
+    # Test options and evaluation metric
+    num_folds = 10
+    num_instances = len(X_train)
+    seed = 7
+    scoring = 'accuracy'
+
+    # Spot Check Algorithms
+    models = []
+    models.append(('LR', LogisticRegression()))
+    models.append(('LDA', LinearDiscriminantAnalysis()))
+    models.append(('KNN', KNeighborsClassifier()))
+    models.append(('CART', DecisionTreeClassifier()))
+    models.append(('NB', GaussianNB()))
+    models.append(('SVM', SVC()))
+    results = []
+    names = []
+
+
+    for name, model in models:
+        kfold = cross_validation.KFold(n=num_instances, n_folds=num_folds, random_state=seed)
+        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+        results.append(cv_results)
+        names.append(name)
+        msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+        print(msg)
+
+    # Compare Algorithms
+    fig = plt.figure()
+    fig.suptitle('Algorithm Comparison')
+    ax = fig.add_subplot(111)
+    plt.boxplot(results)
+    ax.set_xticklabels(names)
+    #plt.show()
+    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-compare-algorithms.png')
+    imageidx += 1
+
+    
+# ================== main function ===
 def run(inputPath='../input/', outputPath='../output/'):
+    global imageidx
+
     print '<<< Running Exploratory Data Analysis #1 ==='
 
     if not os.path.exists(outputPath):
@@ -159,6 +222,8 @@ def run(inputPath='../input/', outputPath='../output/'):
     dataVisualizations(dataframe, outputPath)
     
     X_train, X_validation, Y_train, Y_validation = splitoutValidationDataset(dataframe)
+    
+    evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath)
     
     print '=== Running Exploratory Data Analysis #1 >>>'
     

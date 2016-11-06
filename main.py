@@ -11,10 +11,14 @@ Use Machine Learning techniques to model a student's dropout prediction system f
 
 # Load libraries
 import lib.eda1 as eda1
+import lib.eda2 as eda2
 
 print '<<< main ==='
 
 #run the exploratory data analyses #1
 eda1.run('../input/', 'output/eda1/')
+
+#run the exploratory data analyses #2
+eda2.run('../input/', 'output/eda2/')
 
 print '=== main >>>'

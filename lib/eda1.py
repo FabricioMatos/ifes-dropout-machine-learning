@@ -27,6 +27,10 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import ExtraTreesClassifier
 
 #constants
 N_DIGITS = 3
@@ -48,7 +52,7 @@ def duration():
     global start
     
     end = time.clock()
-    print 'Duration: %.2f ' % (end - start)
+    print '\nDuration: %.2f ' % (end - start)
     
     start = time.clock()
 
@@ -181,6 +185,7 @@ def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
     models.append(('CART', DecisionTreeClassifier()))
     models.append(('NB', GaussianNB()))
     models.append(('SVM', SVC()))
+    
     results = []
     names = []
 
@@ -208,7 +213,6 @@ def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
 # Standardize the dataset and reevaluate algorithms
 def standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
     global imageidx
-
     print '\n === Standardize the dataset and reevaluate algorithms ==='
     
     pipelines = []
@@ -218,6 +222,7 @@ def standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_val
     pipelines.append(('ScaledCART', Pipeline([('Scaler', StandardScaler()),('CART', DecisionTreeClassifier())])))
     pipelines.append(('ScaledNB', Pipeline([('Scaler', StandardScaler()),('NB', GaussianNB())])))
     pipelines.append(('ScaledSVM', Pipeline([('Scaler', StandardScaler()),('SVM', SVC())])))
+    
     results = []
     names = []
     
@@ -240,12 +245,44 @@ def standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_val
     imageidx += 1
 
     
+# Evaluate Ensemble Algorithms
+def evaluateEnsembleAlgorith(X_train, X_validation, Y_train, Y_validation, outputPath):
+    global imageidx
+    print '\n === Evaluate Ensemble Algorithms ==='
+
+    ensembles = []
+    ensembles.append(('AB', AdaBoostClassifier()))
+    ensembles.append(('GBM', GradientBoostingClassifier()))
+    ensembles.append(('RF', RandomForestClassifier()))
+    ensembles.append(('ET', ExtraTreesClassifier()))
+    
+    results = []
+    names = []
+    
+    for name, model in ensembles:
+        kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
+        results.append(cv_results)
+        names.append(name)
+        msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+        print(msg)
+
+    # Compare Algorithms
+    fig = plt.figure()
+    fig.suptitle('Ensemble Algorithm Comparison')
+    ax = fig.add_subplot(111)
+    plt.boxplot(results)
+    ax.set_xticklabels(names)
+    #plt.show()
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Compariso.png')
+    imageidx += 1
+    
+    
 # ===================================================
 # ================== main function ==================
 # ===================================================
-def run(inputPath='../input/', outputPath='../output/'):
+def run(inputPath, outputPath):
     global imageidx
-
     print '<<< Running Exploratory Data Analysis #1 ==='
 
     if not os.path.exists(outputPath):
@@ -268,11 +305,9 @@ def run(inputPath='../input/', outputPath='../output/'):
     # Standardize the dataset and reevaluate the same algorithms
     standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath)
     
-    print '\n'
-    duration()
+    # Evaluate Ensemble Algorithms
+    evaluateEnsembleAlgorith(X_train, X_validation, Y_train, Y_validation, outputPath)    
     
+    duration()    
     print '=== Running Exploratory Data Analysis #1 >>>'
     
-    
-    
-

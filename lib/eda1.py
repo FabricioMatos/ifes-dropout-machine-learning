@@ -28,11 +28,17 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
+#constants
+N_DIGITS = 3
+NUM_FOLDS = 10
+RAND_SEED = 7
+SCORING = 'accuracy'
+VALIDATION_SIZE = 0.20
+
 
 #global variables
 start = time.clock()
 imageidx = 1
-ndigits = 3
 
 
 def pause():
@@ -67,7 +73,7 @@ def dataCleansing(dataframe):
 def descriptiveStatistics(dataframe, outputPath):
     
     # Summarize Data
-    print("=== Summarize Data ===")
+    print("\n=== Summarize Data ===")
 
     # shape
     print(dataframe.shape)
@@ -94,31 +100,31 @@ def dataVisualizations(dataframe, outputPath):
     
     ncolumns = dataframe.shape[1]
     
-    print("=== Data visualizations ===")
+    print("\n=== Data visualizations ===")
 
     # histograms
     print("histograms")
     dataframe.hist()
-    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-histograms.png')
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-histograms.png')
     imageidx += 1
 
     # density
     print("density")
     dataframe.plot(kind='density', subplots=True, layout=(6,7), sharex=False, legend=False)
-    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-density.png')
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-density.png')
     imageidx += 1
 
     # box and whisker plots
     print("box and whisker plots")
     dataframe.plot(kind='box', subplots=True, layout=(8,8), sharex=False, sharey=False)
-    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-box.png')
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-box.png')
     imageidx += 1
 
     # scatter plot matrix
     print("scatter plot matrix")
     scatter_matrix(dataframe)
     #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-scatter-plot.png')
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-scatter-plot.png')
     imageidx += 1
 
     # correlation matrix
@@ -128,7 +134,7 @@ def dataVisualizations(dataframe, outputPath):
     cax = ax.matshow(dataframe.corr(), vmin=-1, vmax=1, interpolation='none')
     fig.colorbar(cax)
     #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-correlation-matrix.png')
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-correlation-matrix.png')
     imageidx += 1
 
 
@@ -142,12 +148,12 @@ def dataVisualizations(dataframe, outputPath):
     df = DataFrame(data=rescaledX)
     df.hist()
     #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-standardized-histograms.png')
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-standardized-histograms.png')
     imageidx += 1
 
 # Split-out validation dataset
 def splitoutValidationDataset(dataframe):    
-    print 'Split-out train/validation datasets'
+    print '\n=== Split-out train/validation datasets ==='
 
     ncolumns = dataframe.shape[1]
     array = dataframe.values
@@ -155,10 +161,7 @@ def splitoutValidationDataset(dataframe):
     X = array[:,0:ncolumns-1].astype(float)
     Y = array[:,ncolumns-1]
 
-    validation_size = 0.20
-    seed = 7
-    
-    X_train, X_validation, Y_train, Y_validation = cross_validation.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+    X_train, X_validation, Y_train, Y_validation = cross_validation.train_test_split(X, Y, test_size=VALIDATION_SIZE, random_state=RAND_SEED)
 
     return (X_train, X_validation, Y_train, Y_validation)
     
@@ -168,12 +171,8 @@ def splitoutValidationDataset(dataframe):
 def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
     global imageidx
     
-    # Test options and evaluation metric
-    num_folds = 10
-    num_instances = len(X_train)
-    seed = 7
-    scoring = 'accuracy'
-
+    print '\n=== Evaluate algorithms ==='
+    
     # Spot Check Algorithms
     models = []
     models.append(('LR', LogisticRegression()))
@@ -187,8 +186,8 @@ def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
 
 
     for name, model in models:
-        kfold = cross_validation.KFold(n=num_instances, n_folds=num_folds, random_state=seed)
-        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+        kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
         results.append(cv_results)
         names.append(name)
         msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
@@ -201,7 +200,43 @@ def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
     plt.boxplot(results)
     ax.set_xticklabels(names)
     #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-compare-algorithms.png')
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms.png')
+    imageidx += 1
+
+    
+    
+# Standardize the dataset and reevaluate algorithms
+def standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
+    global imageidx
+
+    print '\n === Standardize the dataset and reevaluate algorithms ==='
+    
+    pipelines = []
+    pipelines.append(('ScaledLR', Pipeline([('Scaler', StandardScaler()),('LR', LogisticRegression())])))
+    pipelines.append(('ScaledLDA', Pipeline([('Scaler', StandardScaler()),('LDA', LinearDiscriminantAnalysis())])))
+    pipelines.append(('ScaledKNN', Pipeline([('Scaler', StandardScaler()),('KNN', KNeighborsClassifier())])))
+    pipelines.append(('ScaledCART', Pipeline([('Scaler', StandardScaler()),('CART', DecisionTreeClassifier())])))
+    pipelines.append(('ScaledNB', Pipeline([('Scaler', StandardScaler()),('NB', GaussianNB())])))
+    pipelines.append(('ScaledSVM', Pipeline([('Scaler', StandardScaler()),('SVM', SVC())])))
+    results = []
+    names = []
+    
+    for name, model in pipelines:
+        kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
+        results.append(cv_results)
+        names.append(name)
+        msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+        print(msg)
+
+    # Compare Algorithms
+    fig = plt.figure()
+    fig.suptitle('Algorithm Comparison - Standardized Dataset')
+    ax = fig.add_subplot(111)
+    plt.boxplot(results)
+    ax.set_xticklabels(names)
+    #plt.show()
+    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms-standardized-dataset.png')
     imageidx += 1
 
     
@@ -223,12 +258,18 @@ def run(inputPath='../input/', outputPath='../output/'):
     # Understand the data
     descriptiveStatistics(dataframe, outputPath)
     dataVisualizations(dataframe, outputPath)
-    
+        
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = splitoutValidationDataset(dataframe)
     
     # Evaluate Algorithms
     evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath)
+    
+    # Standardize the dataset and reevaluate the same algorithms
+    standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath)
+    
+    print '\n'
+    duration()
     
     print '=== Running Exploratory Data Analysis #1 >>>'
     

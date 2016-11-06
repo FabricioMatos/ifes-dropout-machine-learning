@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 from pandas.tools.plotting import scatter_matrix
 from pandas import DataFrame
 from sklearn.preprocessing import StandardScaler
+from sklearn import cross_validation
 
 start = time.clock()
 
@@ -126,6 +127,23 @@ def dataVisualizations(dataframe, outputPath):
     plt.savefig(outputPath + str(imageidx).zfill(ndigits) + '-standardized-histograms.png')
     imageidx += 1
 
+# Split-out validation dataset
+def splitoutValidationDataset(dataframe):    
+    print 'Split-out train/validation datasets'
+
+    ncolumns = dataframe.shape[1]
+    array = dataframe.values
+    
+    X = array[:,0:ncolumns-1].astype(float)
+    Y = array[:,ncolumns-1]
+
+    validation_size = 0.20
+    seed = 7
+    
+    X_train, X_validation, Y_train, Y_validation = cross_validation.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+
+    return (X_train, X_validation, Y_train, Y_validation)
+    
     
 def run(inputPath='../input/', outputPath='../output/'):
     print '<<< Running Exploratory Data Analysis #1 ==='
@@ -140,7 +158,7 @@ def run(inputPath='../input/', outputPath='../output/'):
     descriptiveStatistics(dataframe, outputPath)
     dataVisualizations(dataframe, outputPath)
     
-    
+    X_train, X_validation, Y_train, Y_validation = splitoutValidationDataset(dataframe)
     
     print '=== Running Exploratory Data Analysis #1 >>>'
     

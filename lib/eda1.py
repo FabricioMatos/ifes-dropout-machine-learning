@@ -205,7 +205,9 @@ def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
     imageidx += 1
 
     
-# ================== main function ===
+# ===================================================
+# ================== main function ==================
+# ===================================================
 def run(inputPath='../input/', outputPath='../output/'):
     global imageidx
 
@@ -218,11 +220,14 @@ def run(inputPath='../input/', outputPath='../output/'):
     dataframe = loadDataframe(inputPath + 'curso_1200.csv')
     dataframe = dataCleansing(dataframe)
     
+    # Understand the data
     descriptiveStatistics(dataframe, outputPath)
     dataVisualizations(dataframe, outputPath)
     
+    #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = splitoutValidationDataset(dataframe)
     
+    # Evaluate Algorithms
     evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath)
     
     print '=== Running Exploratory Data Analysis #1 >>>'

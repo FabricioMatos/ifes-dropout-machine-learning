@@ -15,10 +15,8 @@ import lib.eda2 as eda2
 
 print '<<< main ==='
 
-#run the exploratory data analyses #1
+#run exploratory data analyses
 eda1.run('../input/', 'output/eda1/')
-
-#run the exploratory data analyses #2
 eda2.run('../input/', 'output/eda2/')
 
 print '=== main >>>'

@@ -351,6 +351,8 @@ def set_createImages(value):
     global createImages
     createImages = value
     
+def get_imageidx():    
+    return imageidx
     
     
 def compareFeatureReductionTechniques(X_train, Y_train, outputPath):
@@ -450,6 +452,5 @@ def run(inputFilePath, outputPath, createImagesFlag):
     # Evaluate Ensemble Algorithms
     evaluateEnsembleAlgorith(X_train, Y_train, outputPath)  
     
-    duration()    
-    print '<<< THEN END - Running Exploratory Data Analysis #1 >>>'
+    print '\n<<< THEN END - Running Exploratory Data Analysis #1 >>>'
     

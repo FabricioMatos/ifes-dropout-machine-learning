@@ -3,7 +3,7 @@
 # All rights reserved.
 
 ''''
-Delete columns not available at the end of first semester and run the same analysis of eda1.
+Tune the 3 most promissing algorithms and compare them
 '''
 
 # Load libraries
@@ -52,16 +52,14 @@ VALIDATION_SIZE = 0.20
 start = time.clock()
 imageidx = 1
 createImages = True
+results = []
+names = []
+params = []
 
-def duration():
-    global start
-    
-    end = time.clock()
-    print '\nDuration: %.2f ' % (end - start)
-    
-    start = time.clock()
 
 def tuneLR(X_train, Y_train, outputPath):
+    global results, names, params
+    
     print 'tune LR'
     
     pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
@@ -79,11 +77,22 @@ def tuneLR(X_train, Y_train, outputPath):
     grid_result = grid.fit(rescaledX, Y_train)
     print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
         
+    best_idx = grid_result.best_index_
+
+    #TODO: check it out if 'mean_test_score' is really what a want here
+    cv_results = grid_result.cv_results_['mean_test_score']
+    
+    results.append(cv_results)
+    names.append('LR')
+    params.append('%s' % grid_result.cv_results_['params'][best_idx])
+        
     grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
-    for params, mean_score, scores in grid_scores:
-        print("%f (%f) with: %r" % (scores.mean(), scores.std(), params))
+    for param, mean_score, scores in grid_scores:
+        print("%f (%f) with: %r" % (scores.mean(), scores.std(), param))
 
 def tuneLDA(X_train, Y_train, outputPath):
+    global results, names, params
+    
     print 'tune LDA'
     
     pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
@@ -103,13 +112,24 @@ def tuneLDA(X_train, Y_train, outputPath):
     grid_result = grid.fit(rescaledX, Y_train)
     print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
         
+    best_idx = grid_result.best_index_
+
+    #TODO: check it out if 'mean_test_score' is really what a want here
+    cv_results = grid_result.cv_results_['mean_test_score'] 
+    
+    results.append(cv_results)
+    names.append('LDA')
+    params.append('%s' % grid_result.cv_results_['params'][best_idx])
+        
     grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
-    for params, mean_score, scores in grid_scores:
-        print("%f (%f) with: %r" % (scores.mean(), scores.std(), params))
+    for param, mean_score, scores in grid_scores:
+        print("%f (%f) with: %r" % (scores.mean(), scores.std(), param))
     
     
 # Tune scaled SVM
 def tuneSVM(X_train, Y_train, outputPath):
+    global results, names, params
+    
     print 'tune SVM'
 
     pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
@@ -128,10 +148,40 @@ def tuneSVM(X_train, Y_train, outputPath):
     grid_result = grid.fit(rescaledX, Y_train)
     print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
         
-    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
-    for params, mean_score, scores in grid_scores:
-        print("%f (%f) with: %r" % (scores.mean(), scores.std(), params))
+    best_idx = grid_result.best_index_
+
+    #TODO: check it out if 'mean_test_score' is really what a want here
+    cv_results = grid_result.cv_results_['mean_test_score']
+    
+    results.append(cv_results)
+    names.append('SVM')
+    params.append('%s' % grid_result.cv_results_['params'][best_idx])
         
+    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
+    for param, mean_score, scores in grid_scores:
+        print("%f (%f) with: %r" % (scores.mean(), scores.std(), param))
+        
+        
+def drawTunedAlgorithmsComparison(results, names, outputPath):
+    global imageidx
+    print '\n === Tuned Algorithms Comparison ===\n'
+
+    algorithms = numpy.dstack((names,params, results))[0]    
+    for name, param, result in algorithms:
+        print "%f (%f) - %s => Best Params: %s" % (result.mean(), result.std(), name, param) 
+    
+    # Compare Algorithms
+    if (createImages):
+        fig = plt.figure()
+        fig.suptitle('Final Tuned-Algorithms Comparison')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Tuned-Algorithm-Comparison.png')
+        imageidx += 1
+    
+    plt.close('all')
         
 # ===================================================
 # ================== main function ==================
@@ -172,18 +222,9 @@ def run(inputFilePath, outputPath, createImagesFlag):
     tuneLR(X_train, Y_train, outputPath)
     tuneLDA(X_train, Y_train, outputPath)
     tuneSVM(X_train, Y_train, outputPath)
-
-    #Best LR
-    #0.819034 (0.045960) with: {'C': 0.1}
     
-    #Best LDA (all the same)
-    #0.812367 (0.038609) with: {'tol': 0.0001, 'solver': 'svd'}
-
-    #Best SVM
-    #0.819034 (0.032162) with: {'kernel': 'sigmoid', 'C': 2.0}
-    #0.814541 (0.040974) with: {'kernel': 'linear', 'C': 0.5}
-    #0.814541 (0.040974) with: {'kernel': 'linear', 'C': 0.7}
+    drawTunedAlgorithmsComparison(results, names, outputPath)
     
-    duration()    
-    print '<<< THEN END - Running Exploratory Data Analysis #3 >>>'
+    print '\n<<< THEN END - Running Exploratory Data Analysis #3 >>>'
+    
     

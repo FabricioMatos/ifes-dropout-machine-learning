@@ -100,6 +100,5 @@ def run(inputFilePath, outputPath, createImagesFlag):
     # Evaluate Ensemble Algorithms
     eda1.evaluateEnsembleAlgorith(X_train, Y_train, outputPath)
     
-    duration()    
-    print '<<< THEN END - Running Exploratory Data Analysis #2 >>>'
+    print '\n<<< THEN END - Running Exploratory Data Analysis #2 >>>'
     

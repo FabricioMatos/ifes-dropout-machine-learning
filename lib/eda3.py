@@ -3,7 +3,7 @@
 # All rights reserved.
 
 ''''
-Delete columns not available at the end of first semester and run the same analysis of eda1.
+Try reduction feature techniques like PCA 
 '''
 
 # Load libraries
@@ -92,7 +92,7 @@ def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
     # Compare Algorithms
     if (createImages):
         fig = plt.figure()
-        fig.suptitle('Algorithm Comparison - Standardized Dataset')
+        fig.suptitle('Algorithm Comparison - Pipeline(PCA->MinMax->Standard)')
         ax = fig.add_subplot(111)
         plt.boxplot(results)
         ax.set_xticklabels(names)
@@ -143,7 +143,7 @@ def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
 # ================== main function ==================
 # ===================================================
 def run(inputFilePath, outputPath, createImagesFlag):
-    global start
+    global start, imageidx
 
     print '####################################################################'
     print '############### Running Exploratory Data Analysis #3 ###############'
@@ -163,15 +163,13 @@ def run(inputFilePath, outputPath, createImagesFlag):
     # drop out 'not fair' features
     dataframe = eda2.dataCleansing(dataframe)
         
-    # Understand the data
-    eda1.descriptiveStatistics(dataframe, outputPath)
-    eda1.dataVisualizations(dataframe, outputPath)
-        
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
     
     # Evaluate Algorithms
     eda1.evaluteAlgorithms(X_train, Y_train, outputPath)
+    
+    imageidx = eda1.get_imageidx()
     
     # Standardize the dataset, reduce features using PCA and reevaluate the same algorithms
     standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath)
@@ -179,6 +177,5 @@ def run(inputFilePath, outputPath, createImagesFlag):
     # Standardize the dataset, reduce features using PCA and evaluate Ensemble Algorithms
     evaluateEnsembleAlgorith(X_train, Y_train, outputPath)
     
-    duration()    
-    print '<<< THEN END - Running Exploratory Data Analysis #3 >>>'
+    print '\n<<< THEN END - Running Exploratory Data Analysis #3 >>>'
     

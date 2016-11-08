@@ -138,14 +138,22 @@ def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
     
     plt.close('all')
     
+def tuneLR(X_train, Y_train, outputPath):
+    print 'tune LR'
+    
+
+def tuneLDA(X_train, Y_train, outputPath):
+    print 'tune LDA'
+    
     
 # Tune scaled SVM
 def tuneSVM(X_train, Y_train, outputPath):
     print 'tune SVM'
 
-    scaler = StandardScaler().fit(X_train)
+    pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
+    scaler = pipeline.fit(X_train)
     rescaledX = scaler.transform(X_train)
-
+    
     c_values = [0.1, 0.3, 0.5, 0.7, 0.9, 1.0, 1.3, 1.5, 1.7, 2.0]
     kernel_values = ['linear', 'poly', 'rbf', 'sigmoid']
     param_grid = dict(C=c_values, kernel=kernel_values)
@@ -186,13 +194,7 @@ def run(inputFilePath, outputPath, createImagesFlag):
     
     # drop out 'not fair' features
     dataframe = eda2.dataCleansing(dataframe)
-    dataframe.to_csv(inputFilePath[:-4] + '-cleaned.csv')
-    
-        
-    # Understand the data
-    #eda1.descriptiveStatistics(dataframe, outputPath)
-    #eda1.dataVisualizations(dataframe, outputPath)
-        
+            
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
 
@@ -205,6 +207,8 @@ def run(inputFilePath, outputPath, createImagesFlag):
     ScaledCART:	mean=0.739614 (std=0.043244)
     '''
     
+    #tuneLR(X_train, Y_train, outputPath)
+    #tuneLDA(X_train, Y_train, outputPath)
     tuneSVM(X_train, Y_train, outputPath)
     
     

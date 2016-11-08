@@ -388,20 +388,21 @@ def compareFeatureReductionTechniques(X_train, Y_train, outputPath):
     bar_offsets = (numpy.arange(len(N_FEATURES_OPTIONS)) *
                    (len(reducer_labels) + 1) + .5)
 
-    plt.figure()
-    COLORS = 'bgrcmyk'
-    for i, (label, reducer_scores) in enumerate(zip(reducer_labels, mean_scores)):
-        plt.bar(bar_offsets + i, reducer_scores, label=label, color=COLORS[i])
+    if (createImages):
+        plt.figure()
+        COLORS = 'bgrcmyk'
+        for i, (label, reducer_scores) in enumerate(zip(reducer_labels, mean_scores)):
+            plt.bar(bar_offsets + i, reducer_scores, label=label, color=COLORS[i])
 
-    plt.title("Comparing feature reduction techniques")
-    plt.xlabel('Reduced number of features')
-    plt.xticks(bar_offsets + len(reducer_labels) / 2, N_FEATURES_OPTIONS)
-    plt.ylabel('Digit classification accuracy')
-    plt.ylim((0, 1))
-    plt.legend(loc='upper left')
-    #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Comparing-feature-reduction-techniques.png')
-    imageidx += 1
+        plt.title("Comparing feature reduction techniques")
+        plt.xlabel('Reduced number of features')
+        plt.xticks(bar_offsets + len(reducer_labels) / 2, N_FEATURES_OPTIONS)
+        plt.ylabel('Digit classification accuracy')
+        plt.ylim((0, 1))
+        plt.legend(loc='upper left')
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Comparing-feature-reduction-techniques.png')
+        imageidx += 1
     
     
 # ===================================================

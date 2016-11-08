@@ -24,13 +24,13 @@ def run(inputname):
     inputFilePath = '../input/' + inputname + '.csv'    
     
     #run a first exploratory data analyses
-    eda1.run(inputFilePath, 'output/' + inputname + '/eda1/', createImagesFlag)
+    #eda1.run(inputFilePath, 'output/' + inputname + '/eda1/', createImagesFlag)
 
     #drop "not fair" features identified in the eda1
-    eda2.run(inputFilePath, 'output/' + inputname + '/eda2/', createImagesFlag)
+    #eda2.run(inputFilePath, 'output/' + inputname + '/eda2/', createImagesFlag)
 
     #try to improve the preliminar results appling "feature selection" techniques
-    eda3.run(inputFilePath, 'output/' + inputname + '/eda3/', createImagesFlag)
+    #eda3.run(inputFilePath, 'output/' + inputname + '/eda3/', createImagesFlag)
     
     #tune the 3 best aglorithms
     eda4.run(inputFilePath, 'output/' + inputname + '/eda4/', createImagesFlag)

@@ -14,19 +14,19 @@ import lib.eda1 as eda1
 import lib.eda2 as eda2
 import lib.eda3 as eda3
 
-print '<<< main ==='
-
 #debug flags
-createImagesFlag = True
 #createImagesFlag = False
-
+createImagesFlag = True
 
 
 inputFilePath = '../input/curso_1200.csv'
 
-#run exploratory data analyses
+#run a first exploratory data analyses
 eda1.run(inputFilePath, 'output/eda1/', createImagesFlag)
-eda2.run(inputFilePath, 'output/eda2/', createImagesFlag)
-#eda3.run(inputFilePath, 'output/eda3/', createImagesFlag)
 
-print '=== main >>>'
+#drop "not fair" features identified in the eda1
+eda2.run(inputFilePath, 'output/eda2/', createImagesFlag)
+
+#try to improve the preliminar results appling "feature selection" techniques
+eda3.run(inputFilePath, 'output/eda3/', createImagesFlag)
+

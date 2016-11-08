@@ -193,6 +193,30 @@ def splitoutValidationDataset(dataframe):
 
     return (X_train, X_validation, Y_train, Y_validation)
     
+#Feature Selection
+def featureSelection(features, X_train, Y_train):
+    print("\n=== Feature Selection ===")
+    
+    printFeaturesByRelevance(features, X_train, Y_train, ExtraTreesClassifier())
+    printFeaturesByRelevance(features, X_train, Y_train, RandomForestClassifier())
+    
+    
+#Print Features by Relevance
+def printFeaturesByRelevance(features, X_train, Y_train, model):
+    
+    print "\nFeatures by Relevance (using '%s'):" % type(model).__name__
+    model.fit(X_train, Y_train)
+
+    idx = 0
+    features_by_relevance = []
+    for relevance in model.feature_importances_:
+        features_by_relevance.append((relevance, features[idx]))
+        idx += 1
+    
+    features_by_relevance = sorted(features_by_relevance, key=lambda x: x[0], reverse=True)
+
+    for relevance, feature in features_by_relevance:
+        print "%f : %s" % (relevance, feature)
 
 
 # Evaluate Algorithms
@@ -219,7 +243,7 @@ def evaluteAlgorithms(X_train, Y_train, outputPath):
         cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
         results.append(cv_results)
         names.append(name)
-        msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+        msg = "%s:\tmean=%f (std=%f)" % (name, cv_results.mean(), cv_results.std())
         print(msg)
 
     # Compare Algorithms
@@ -257,9 +281,9 @@ def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
         cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
         results.append(cv_results)
         names.append(name)
-        msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+        msg = "%s:\tmean=%f (std=%f)" % (name, cv_results.mean(), cv_results.std())
         print(msg)
-
+        
     # Compare Algorithms
     if (createImages):
         fig = plt.figure()
@@ -292,7 +316,7 @@ def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
         cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
         results.append(cv_results)
         names.append(name)
-        msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+        msg = "%s:\tmean=%f (std=%f)" % (name, cv_results.mean(), cv_results.std())
         print(msg)
 
     # Compare Algorithms
@@ -324,7 +348,11 @@ def set_createImages(value):
 def run(inputFilePath, outputPath, createImagesFlag):
     global imageidx
     global start
-    print '<<< Running Exploratory Data Analysis #1 ==='
+
+    print '####################################################################'
+    print '############### Running Exploratory Data Analysis #1 ###############'
+    print '####################################################################'
+    print ''
 
     imageidx = 1
     start = time.clock()
@@ -344,6 +372,9 @@ def run(inputFilePath, outputPath, createImagesFlag):
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = splitoutValidationDataset(dataframe)
     
+    # Select the most effective features
+    featureSelection(dataframe.columns, X_train, Y_train)    
+    
     # Evaluate Algorithms
     evaluteAlgorithms(X_train, Y_train, outputPath)
     
@@ -354,5 +385,5 @@ def run(inputFilePath, outputPath, createImagesFlag):
     evaluateEnsembleAlgorith(X_train, Y_train, outputPath)  
     
     duration()    
-    print '=== Running Exploratory Data Analysis #1 >>>'
+    print '<<< THEN END - Running Exploratory Data Analysis #1 >>>'
     

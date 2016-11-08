@@ -43,6 +43,7 @@ VALIDATION_SIZE = 0.20
 #global variables
 start = time.clock()
 imageidx = 1
+createImages = True
 
 def pause():
     os.system('read -p "Press Enter to continue..."')
@@ -63,8 +64,8 @@ def loadDataframe(filename):
 #drop not interesting columns and fill NaN values
 def dataCleansing(dataframe):
     #axis: 0 for rows and 1 for columns
-    dataframe.drop('CEP', axis=1, inplace=True)
-    dataframe.drop('SIT_MATRICULA', axis=1, inplace=True)
+    dataframe.drop('cep', axis=1, inplace=True)
+    dataframe.drop('sit_matricula', axis=1, inplace=True)
 
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)
@@ -106,67 +107,75 @@ def dataVisualizations(dataframe, outputPath):
     print("\n=== Data visualizations ===")
 
     # histograms
-    print("histograms")
-    dataframe.hist()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-histograms.png')
-    imageidx += 1
+    if (createImages):
+        print("histograms")
+        dataframe.hist()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-histograms.png')
+        imageidx += 1
 
     # density
-    print("density")
-    dataframe.plot(kind='density', subplots=True, sharex=False, legend=False)
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-density.png')
-    imageidx += 1
+    if (createImages):
+        print("density")
+        dataframe.plot(kind='density', subplots=True, sharex=False, legend=False)
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-density.png')
+        imageidx += 1
 
     # box and whisker plots
-    print("box and whisker plots")
-    dataframe.plot(kind='box', subplots=True, layout=(5,5), sharex=False, sharey=False)
-    #dataframe.plot(kind='box', subplots=True, sharex=False, sharey=False)
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-box.png')
-    imageidx += 1
+    if (createImages):
+        print("box and whisker plots")
+        dataframe.plot(kind='box', subplots=True, layout=(5,5), sharex=False, sharey=False)
+        #dataframe.plot(kind='box', subplots=True, sharex=False, sharey=False)
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-box.png')
+        imageidx += 1
 
     # scatter plot matrix
-    print("scatter plot matrix")
-    scatter_matrix(dataframe)
-    #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-scatter-plot.png')
-    imageidx += 1
+    if (createImages):
+        print("scatter plot matrix")
+        scatter_matrix(dataframe)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-scatter-plot.png')
+        imageidx += 1
 
     # correlation matrix
-    print("correlation matrix")
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    cax = ax.matshow(dataframe.corr(), vmin=-1, vmax=1, interpolation='none')
-    fig.colorbar(cax)
-    #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-correlation-matrix.png')
-    imageidx += 1
+    if (createImages):
+        print("correlation matrix")
+        fig = plt.figure()
+        ax = fig.add_subplot(111, autoscale_on=True)
+        cax = ax.matshow(dataframe.corr(), vmin=-1, vmax=1, interpolation='none')
+        fig.colorbar(cax)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-correlation-matrix.png')
+        imageidx += 1
 
     # histograms of standardized data
-    print("histograms of standardized data")
-    array = dataframe.values
-    Ax = array[:,0:ncolumns-1].astype(float)
-    Ay = array[:,ncolumns-1]
-    scaler = StandardScaler().fit(Ax)
-    rescaledX = scaler.transform(Ax)
-    stdDataframe = DataFrame(data=rescaledX)
-    stdDataframe.hist()
-    #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-standardized-histograms.png')
-    imageidx += 1
+    if (createImages):
+        print("histograms of standardized data")
+        array = dataframe.values
+        Ax = array[:,0:ncolumns-1].astype(float)
+        Ay = array[:,ncolumns-1]
+        scaler = StandardScaler().fit(Ax)
+        rescaledX = scaler.transform(Ax)
+        stdDataframe = DataFrame(data=rescaledX)
+        stdDataframe.hist()
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-standardized-histograms.png')
+        imageidx += 1
     
     # density of standardized data
-    print("density of standardized data")
-    stdDataframe.plot(kind='density', subplots=True, sharex=False, legend=False)
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-standardized-density.png')
-    imageidx += 1
+    if (createImages):
+        print("density of standardized data")
+        stdDataframe.plot(kind='density', subplots=True, sharex=False, legend=False)
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-standardized-density.png')
+        imageidx += 1
     
     
     # box and whisker plots of standardized data
-    print("box and whisker plots of standardized data")
-    stdDataframe.plot(kind='box', subplots=True, layout=(5,5), sharex=False, sharey=False)
-    #stdDataframe.plot(kind='box', subplots=True, sharex=False, sharey=False)
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-standardized-box.png')
-    imageidx += 1
+    if (createImages):
+        print("box and whisker plots of standardized data")
+        stdDataframe.plot(kind='box', subplots=True, layout=(5,5), sharex=False, sharey=False)
+        #stdDataframe.plot(kind='box', subplots=True, sharex=False, sharey=False)
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-standardized-box.png')
+        imageidx += 1
     
     plt.close('all')
 
@@ -187,7 +196,7 @@ def splitoutValidationDataset(dataframe):
 
 
 # Evaluate Algorithms
-def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
+def evaluteAlgorithms(X_train, Y_train, outputPath):
     global imageidx
     
     print '\n=== Evaluate algorithms ==='
@@ -214,20 +223,21 @@ def evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
         print(msg)
 
     # Compare Algorithms
-    fig = plt.figure()
-    fig.suptitle('Algorithm Comparison')
-    ax = fig.add_subplot(111)
-    plt.boxplot(results)
-    ax.set_xticklabels(names)
-    #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms.png')
-    imageidx += 1
+    if (createImages):
+        fig = plt.figure()
+        fig.suptitle('Algorithm Comparison')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms.png')
+        imageidx += 1
 
     plt.close('all')
     
     
 # Standardize the dataset and reevaluate algorithms
-def standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath):
+def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
     global imageidx
     print '\n === Standardize the dataset and reevaluate algorithms ==='
     
@@ -251,19 +261,20 @@ def standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_val
         print(msg)
 
     # Compare Algorithms
-    fig = plt.figure()
-    fig.suptitle('Algorithm Comparison - Standardized Dataset')
-    ax = fig.add_subplot(111)
-    plt.boxplot(results)
-    ax.set_xticklabels(names)
-    #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms-standardized-dataset.png')
-    imageidx += 1
+    if (createImages):
+        fig = plt.figure()
+        fig.suptitle('Algorithm Comparison - Standardized Dataset')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms-standardized-dataset.png')
+        imageidx += 1
 
     plt.close('all')
     
 # Evaluate Ensemble Algorithms
-def evaluateEnsembleAlgorith(X_train, X_validation, Y_train, Y_validation, outputPath):
+def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
     global imageidx
     print '\n === Evaluate Ensemble Algorithms ==='
 
@@ -285,14 +296,15 @@ def evaluateEnsembleAlgorith(X_train, X_validation, Y_train, Y_validation, outpu
         print(msg)
 
     # Compare Algorithms
-    fig = plt.figure()
-    fig.suptitle('Ensemble Algorithm Comparison')
-    ax = fig.add_subplot(111)
-    plt.boxplot(results)
-    ax.set_xticklabels(names)
-    #plt.show()
-    plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Compariso.png')
-    imageidx += 1
+    if (createImages):
+        fig = plt.figure()
+        fig.suptitle('Ensemble Algorithm Comparison')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Compariso.png')
+        imageidx += 1
     
     plt.close('all')
     
@@ -301,22 +313,28 @@ def reset_imageidx(value=1):
     global imageidx
     imageidx = value
     
+def set_createImages(value):
+    global createImages
+    createImages = value
+    
+    
 # ===================================================
 # ================== main function ==================
 # ===================================================
-def run(inputPath, outputPath):
+def run(inputFilePath, outputPath, createImagesFlag):
     global imageidx
     global start
     print '<<< Running Exploratory Data Analysis #1 ==='
 
     imageidx = 1
     start = time.clock()
+    set_createImages(createImagesFlag)
     
     if not os.path.exists(outputPath):
         os.makedirs(outputPath)    
         
     # Load dataset
-    dataframe = loadDataframe(inputPath + 'curso_1200.csv')
+    dataframe = loadDataframe(inputFilePath)
     dataframe = dataCleansing(dataframe)
     
     # Understand the data
@@ -327,13 +345,13 @@ def run(inputPath, outputPath):
     X_train, X_validation, Y_train, Y_validation = splitoutValidationDataset(dataframe)
     
     # Evaluate Algorithms
-    evaluteAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath)
+    evaluteAlgorithms(X_train, Y_train, outputPath)
     
     # Standardize the dataset and reevaluate the same algorithms
-    standardizeDataAndReevaluateAlgorithms(X_train, X_validation, Y_train, Y_validation, outputPath)
+    standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath)
     
     # Evaluate Ensemble Algorithms
-    evaluateEnsembleAlgorith(X_train, X_validation, Y_train, Y_validation, outputPath)    
+    evaluateEnsembleAlgorith(X_train, Y_train, outputPath)  
     
     duration()    
     print '=== Running Exploratory Data Analysis #1 >>>'

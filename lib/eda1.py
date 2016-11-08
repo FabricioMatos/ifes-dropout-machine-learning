@@ -261,7 +261,7 @@ def evaluteAlgorithms(X_train, Y_train, outputPath):
         plt.boxplot(results)
         ax.set_xticklabels(names)
         #plt.show()
-        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms.png')
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Compare-algorithms.png')
         imageidx += 1
 
     plt.close('all')
@@ -302,7 +302,7 @@ def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
         plt.boxplot(results)
         ax.set_xticklabels(names)
         #plt.show()
-        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms-standardized-dataset.png')
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Compare-algorithms-standardized-dataset.png')
         imageidx += 1
 
     plt.close('all')
@@ -337,7 +337,7 @@ def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
         plt.boxplot(results)
         ax.set_xticklabels(names)
         #plt.show()
-        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Compariso.png')
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Comparison.png')
         imageidx += 1
     
     plt.close('all')

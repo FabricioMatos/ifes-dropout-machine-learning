@@ -190,7 +190,7 @@ def run(inputFilePath, outputPath, createImagesFlag):
     global start
 
     print '####################################################################'
-    print '############### Running Exploratory Data Analysis #3 ###############'
+    print '############### Running Exploratory Data Analysis #4 ###############'
     print '####################################################################'
     print ''
     
@@ -210,21 +210,14 @@ def run(inputFilePath, outputPath, createImagesFlag):
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
 
-    '''
-    ScaledLR:	mean=0.816812 (std=0.050291)
-    ScaledLDA:	mean=0.812367 (std=0.038609)
-    ScaledSVM:	mean=0.812319 (std=0.047945)    
-    ScaledNB:	mean=0.790338 (std=0.044079)
-    ScaledKNN:	mean=0.772512 (std=0.050124)
-    ScaledCART:	mean=0.739614 (std=0.043244)
-    '''
-    
+    # tune each algorithm
     tuneLR(X_train, Y_train, outputPath)
     tuneLDA(X_train, Y_train, outputPath)
     tuneSVM(X_train, Y_train, outputPath)
     
+    #print the results comparing the algorithms with the best tune for each one
     drawTunedAlgorithmsComparison(results, names, outputPath)
     
-    print '\n<<< THEN END - Running Exploratory Data Analysis #3 >>>'
+    print '\n<<< THEN END - Running Exploratory Data Analysis #4 >>>'
     
     

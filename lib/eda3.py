@@ -97,7 +97,7 @@ def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
         plt.boxplot(results)
         ax.set_xticklabels(names)
         #plt.show()
-        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms-standardized-dataset.png')
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Compare-algorithms-standardized-dataset.png')
         imageidx += 1
 
     plt.close('all')
@@ -128,12 +128,12 @@ def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
     # Compare Algorithms
     if (createImages):
         fig = plt.figure()
-        fig.suptitle('Ensemble Algorithm Comparison')
+        fig.suptitle('Ensemble Algorithm Comparison - Pipeline(PCA->MinMax->Standard)')
         ax = fig.add_subplot(111)
         plt.boxplot(results)
         ax.set_xticklabels(names)
         #plt.show()
-        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Compariso.png')
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Comparison.png')
         imageidx += 1
     
     plt.close('all')

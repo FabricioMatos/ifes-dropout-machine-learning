@@ -61,86 +61,27 @@ def duration():
     
     start = time.clock()
 
-        
-# Standardize the dataset, reduce features using PCA and reevaluate the same algorithms
-def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
-    global imageidx
-    print '\n === Standardize the dataset and reevaluate algorithms ==='
-    
-    
-    #('PCA', PCA()),
-    
-    pipelines = []
-    pipelines.append(('ScaledLR', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('LR', LogisticRegression())])))
-    pipelines.append(('ScaledLDA', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('LDA', LinearDiscriminantAnalysis())])))
-    pipelines.append(('ScaledKNN', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('KNN', KNeighborsClassifier())])))
-    pipelines.append(('ScaledCART', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('CART', DecisionTreeClassifier())])))
-    pipelines.append(('ScaledNB', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('NB', GaussianNB())])))
-    pipelines.append(('ScaledSVM', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('SVM', SVC())])))
-    
-    results = []
-    names = []
-    
-    for name, model in pipelines:
-        kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
-        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
-        results.append(cv_results)
-        names.append(name)
-        msg = "%s:\tmean=%f (std=%f)" % (name, cv_results.mean(), cv_results.std())
-        print(msg)
-        
-    # Compare Algorithms
-    if (createImages):
-        fig = plt.figure()
-        fig.suptitle('Algorithm Comparison - Standardized Dataset')
-        ax = fig.add_subplot(111)
-        plt.boxplot(results)
-        ax.set_xticklabels(names)
-        #plt.show()
-        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-compare-algorithms-standardized-dataset.png')
-        imageidx += 1
-
-    plt.close('all')
-    
-    
-# Evaluate Ensemble Algorithms
-def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
-    global imageidx
-    print '\n === Evaluate Ensemble Algorithms ==='
-
-    ensembles = []
-    ensembles.append(('AB', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('AB', AdaBoostClassifier())])))
-    ensembles.append(('GBM', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('GBM', GradientBoostingClassifier())])))
-    ensembles.append(('RF', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('RF', RandomForestClassifier())])))
-    ensembles.append(('ET', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('ET', ExtraTreesClassifier())])))
-    
-    results = []
-    names = []
-    
-    for name, model in ensembles:
-        kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
-        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
-        results.append(cv_results)
-        names.append(name)
-        msg = "%s:\tmean=%f (std=%f)" % (name, cv_results.mean(), cv_results.std())
-        print(msg)
-
-    # Compare Algorithms
-    if (createImages):
-        fig = plt.figure()
-        fig.suptitle('Ensemble Algorithm Comparison')
-        ax = fig.add_subplot(111)
-        plt.boxplot(results)
-        ax.set_xticklabels(names)
-        #plt.show()
-        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Compariso.png')
-        imageidx += 1
-    
-    plt.close('all')
-    
 def tuneLR(X_train, Y_train, outputPath):
     print 'tune LR'
     
+    pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
+    scaler = pipeline.fit(X_train)
+    rescaledX = scaler.transform(X_train)
+    
+    c_values = [0.001, 0.01, 0.1, 1, 10, 100, 1000]
+    param_grid = dict(C=c_values)
+    
+    model = LogisticRegression()
+    
+    kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+    grid = GridSearchCV(estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
+    
+    grid_result = grid.fit(rescaledX, Y_train)
+    print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
+        
+    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
+    for params, mean_score, scores in grid_scores:
+        print("%f (%f) with: %r" % (scores.mean(), scores.std(), params))
 
 def tuneLDA(X_train, Y_train, outputPath):
     print 'tune LDA'
@@ -207,9 +148,9 @@ def run(inputFilePath, outputPath, createImagesFlag):
     ScaledCART:	mean=0.739614 (std=0.043244)
     '''
     
-    #tuneLR(X_train, Y_train, outputPath)
+    tuneLR(X_train, Y_train, outputPath)
     #tuneLDA(X_train, Y_train, outputPath)
-    tuneSVM(X_train, Y_train, outputPath)
+    #tuneSVM(X_train, Y_train, outputPath)
     
     
     

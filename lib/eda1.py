@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 from pandas.tools.plotting import scatter_matrix
 from pandas import DataFrame
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn import cross_validation
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
@@ -265,13 +266,16 @@ def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
     global imageidx
     print '\n === Standardize the dataset and reevaluate algorithms ==='
     
+    
+    #('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),
+    
     pipelines = []
-    pipelines.append(('ScaledLR', Pipeline([('Scaler', StandardScaler()),('LR', LogisticRegression())])))
-    pipelines.append(('ScaledLDA', Pipeline([('Scaler', StandardScaler()),('LDA', LinearDiscriminantAnalysis())])))
-    pipelines.append(('ScaledKNN', Pipeline([('Scaler', StandardScaler()),('KNN', KNeighborsClassifier())])))
-    pipelines.append(('ScaledCART', Pipeline([('Scaler', StandardScaler()),('CART', DecisionTreeClassifier())])))
-    pipelines.append(('ScaledNB', Pipeline([('Scaler', StandardScaler()),('NB', GaussianNB())])))
-    pipelines.append(('ScaledSVM', Pipeline([('Scaler', StandardScaler()),('SVM', SVC())])))
+    pipelines.append(('ScaledLR', Pipeline([('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('LR', LogisticRegression())])))
+    pipelines.append(('ScaledLDA', Pipeline([('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('LDA', LinearDiscriminantAnalysis())])))
+    pipelines.append(('ScaledKNN', Pipeline([('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('KNN', KNeighborsClassifier())])))
+    pipelines.append(('ScaledCART', Pipeline([('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('CART', DecisionTreeClassifier())])))
+    pipelines.append(('ScaledNB', Pipeline([('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('NB', GaussianNB())])))
+    pipelines.append(('ScaledSVM', Pipeline([('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('SVM', SVC())])))
     
     results = []
     names = []

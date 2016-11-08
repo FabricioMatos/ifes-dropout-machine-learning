@@ -44,6 +44,7 @@ def dataCleansing(dataframe):
     dataframe.drop('reprovacoes_por_falta', axis=1, inplace=True)
     dataframe.drop('aprovacoes', axis=1, inplace=True)
     dataframe.drop('aproveitamentos', axis=1, inplace=True)
+    dataframe.drop('sit_enade', axis=1, inplace=True)
    
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)

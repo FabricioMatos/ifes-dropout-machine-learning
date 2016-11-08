@@ -1,0 +1,436 @@
+####################################################################
+############### Running Exploratory Data Analysis #1 ###############
+####################################################################
+
+loading ../input/curso_1200.csv ...
+
+=== Summarize Data ===
+(567, 24)
+renda_per_capita                     int64
+grau_instrucao                     float64
+estado_civil                       float64
+cod_cidade                         float64
+possui_filhos                        int64
+sexo                                 int64
+ano_nascimento                       int64
+cod_naturalidade                   float64
+ano_reservista                     float64
+forma_ingresso                     float64
+periodo_atual                        int64
+coeficiente_rendimento             float64
+coeficiente_progressao             float64
+turno                              float64
+sit_enade                            int64
+reprovacoes_por_nota                 int64
+reprovacoes_por_falta                int64
+aprovacoes                           int64
+aproveitamentos                      int64
+reprovacoes_por_nota_periodo_1       int64
+reprovacoes_por_falta_periodo_1      int64
+aprovacoes_periodo_1                 int64
+aproveitamentos_periodo_1            int64
+evadiu                               int64
+dtype: object
+    renda_per_capita  grau_instrucao  estado_civil  cod_cidade  possui_filhos  sexo  \
+0                  0             0.2           0.5       870.0              0     0   
+1                  0             0.0           0.0       870.0              0     0   
+2                  2             0.2           0.4       878.0              0     1   
+3                  0             0.2           0.5       870.0              0     0   
+4                  7             0.2           0.4       877.0              0     1   
+5                  6             0.2           0.4       878.0              0     1   
+6                  0             0.2           0.4       878.0              0     1   
+7                  2             0.2           0.4       870.0              0     1   
+8                  0             0.0           0.4       878.0              0     1   
+9                  4             0.0           0.4       870.0              0     1   
+10                 5             0.2           0.4       878.0              0     1   
+11                 2             0.2           0.5       870.0              0     0   
+12                 2             0.2           0.0       870.0              0     1   
+13                 5             0.0           0.4       870.0              0     1   
+14                 1             0.1           0.4       878.0              0     1   
+15                 6             0.2           0.4       877.0              0     1   
+16                 6             0.2           0.4       870.0              0     1   
+17                10             0.0           0.0         0.0              0     0   
+18                 2             0.2           0.4       870.0              0     1   
+19                 3             0.1           0.4       877.0              0     1   
+
+    ano_nascimento  cod_naturalidade  ano_reservista  forma_ingresso   ...    sit_enade  \
+0             1996             870.0             0.0            0.35   ...            0   
+1             1984             877.0             0.0            0.35   ...            0   
+2             1990             878.0          2009.0            0.40   ...            0   
+3             1986             878.0             0.0            0.35   ...            0   
+4             1994             878.0          2012.0            0.60   ...            0   
+5             1995             878.0             0.0            0.35   ...            0   
+6             1995             878.0          2014.0            0.35   ...            0   
+7             1992             878.0             0.0            0.01   ...            0   
+8             1993             877.0          2012.0            0.40   ...            0   
+9             1991             878.0          2009.0            0.30   ...            0   
+10            1973            5256.0             0.0            0.30   ...            0   
+11            1992             878.0             0.0            0.40   ...            0   
+12            1990             878.0          2208.0            0.01   ...            0   
+13            1992             878.0          2010.0            0.30   ...            0   
+14            1991            6253.0          2009.0            0.30   ...            0   
+15            1991            4182.0          2009.0            0.30   ...            0   
+16            1995             878.0          2013.0            0.35   ...            0   
+17            1989               0.0             0.0            0.30   ...            0   
+18            1993             878.0          2011.0            0.35   ...            0   
+19            1994             878.0          2013.0            0.35   ...            0   
+
+    reprovacoes_por_nota  reprovacoes_por_falta  aprovacoes  aproveitamentos  \
+0                      0                      0           0                0   
+1                      4                      1           1                0   
+2                      0                      6           0                0   
+3                      1                      5           0                0   
+4                      0                      0           0                0   
+5                      0                      0           0                0   
+6                      0                      6           0                0   
+7                      7                      7          25                8   
+8                      7                     14          16                0   
+9                      7                      1          44                0   
+10                     2                     12           3                1   
+11                     7                      2           8                0   
+12                     0                      0           0                4   
+13                     1                      2          33                0   
+14                     2                     10           0                0   
+15                     1                      5           0                0   
+16                     4                      2           1                0   
+17                     0                      0           0                0   
+18                     0                      0           0                0   
+19                     1                      0          24                0   
+
+    reprovacoes_por_nota_periodo_1  reprovacoes_por_falta_periodo_1  aprovacoes_periodo_1  \
+0                                0                                0                     0   
+1                                4                                1                     1   
+2                                0                                6                     0   
+3                                1                                5                     0   
+4                                0                                0                     0   
+5                                0                                0                     0   
+6                                0                                6                     0   
+7                                0                                0                     0   
+8                                2                                0                     4   
+9                                1                                0                     5   
+10                               2                                0                     3   
+11                               2                                0                     4   
+12                               0                                0                     0   
+13                               0                                0                     6   
+14                               2                                4                     0   
+15                               1                                5                     0   
+16                               4                                1                     1   
+17                               0                                0                     0   
+18                               0                                0                     0   
+19                               0                                0                     6   
+
+    aproveitamentos_periodo_1  evadiu  
+0                           0       1  
+1                           0       1  
+2                           0       1  
+3                           0       1  
+4                           0       1  
+5                           0       1  
+6                           0       1  
+7                           4       1  
+8                           0       0  
+9                           0       0  
+10                          1       1  
+11                          0       1  
+12                          3       1  
+13                          0       1  
+14                          0       1  
+15                          0       1  
+16                          0       1  
+17                          0       1  
+18                          0       1  
+19                          0       0  
+
+[20 rows x 24 columns]
+       renda_per_capita  grau_instrucao  estado_civil  cod_cidade  possui_filhos     sexo  \
+count           567.000         567.000       567.000     567.000        567.000  567.000   
+mean              2.827           0.231         0.367    1483.843          0.028    0.810   
+std               2.732           0.164         0.122    1934.062          0.166    0.393   
+min               0.000           0.000         0.000       0.000          0.000    0.000   
+25%               0.000           0.200         0.400     870.000          0.000    1.000   
+50%               2.000           0.200         0.400     877.000          0.000    1.000   
+75%               5.000           0.200         0.400     878.000          0.000    1.000   
+max              10.000           0.700         0.700    7738.000          1.000    1.000   
+
+       ano_nascimento  cod_naturalidade  ano_reservista  forma_ingresso   ...     sit_enade  \
+count         567.000           567.000         567.000         567.000   ...       567.000   
+mean         1988.647          1664.376        1313.644           0.353   ...         0.152   
+std             5.913          1885.101         955.705           0.199   ...         0.636   
+min          1949.000             0.000           0.000           0.010   ...         0.000   
+25%          1986.000           877.000           0.000           0.300   ...         0.000   
+50%          1990.000           878.000        2005.000           0.350   ...         0.000   
+75%          1992.000           878.000        2009.000           0.350   ...         0.000   
+max          1998.000         11736.000        2208.000           0.900   ...         3.000   
+
+       reprovacoes_por_nota  reprovacoes_por_falta  aprovacoes  aproveitamentos  \
+count               567.000                567.000     567.000          567.000   
+mean                  3.349                  4.989      11.556            1.307   
+std                   4.293                  5.513      14.700            3.196   
+min                   0.000                  0.000       0.000            0.000   
+25%                   0.000                  0.000       0.000            0.000   
+50%                   2.000                  4.000       4.000            0.000   
+75%                   5.000                  6.000      19.000            0.000   
+max                  25.000                 42.000      46.000           26.000   
+
+       reprovacoes_por_nota_periodo_1  reprovacoes_por_falta_periodo_1  aprovacoes_periodo_1  \
+count                         567.000                          567.000               567.000   
+mean                            0.917                            1.538                 1.704   
+std                             1.209                            2.162                 2.056   
+min                             0.000                            0.000                 0.000   
+25%                             0.000                            0.000                 0.000   
+50%                             0.000                            0.000                 1.000   
+75%                             2.000                            3.000                 3.000   
+max                             5.000                            6.000                 6.000   
+
+       aproveitamentos_periodo_1   evadiu  
+count                    567.000  567.000  
+mean                       0.610    0.642  
+std                        1.467    0.480  
+min                        0.000    0.000  
+25%                        0.000    0.000  
+50%                        0.000    1.000  
+75%                        0.000    1.000  
+max                        6.000    1.000  
+
+[8 rows x 24 columns]
+evadiu
+0    203
+1    364
+dtype: int64
+
+=== Data visualizations ===
+histograms
+density
+box and whisker plots
+scatter plot matrix
+correlation matrix
+histograms of standardized data
+density of standardized data
+box and whisker plots of standardized data
+
+=== Split-out train/validation datasets ===
+
+=== Feature Selection ===
+
+Features by Relevance (using 'ExtraTreesClassifier'):
+0.201899 : aprovacoes
+0.190246 : coeficiente_progressao
+0.114066 : coeficiente_rendimento
+0.091904 : periodo_atual
+0.070104 : aprovacoes_periodo_1
+0.035447 : forma_ingresso
+0.032518 : reprovacoes_por_nota
+0.027970 : reprovacoes_por_falta_periodo_1
+0.025723 : reprovacoes_por_falta
+0.023734 : ano_nascimento
+0.021686 : sit_enade
+0.021170 : cod_cidade
+0.020556 : renda_per_capita
+0.019031 : reprovacoes_por_nota_periodo_1
+0.018250 : ano_reservista
+0.017660 : aproveitamentos
+0.012784 : cod_naturalidade
+0.011868 : turno
+0.011429 : aproveitamentos_periodo_1
+0.008993 : grau_instrucao
+0.007870 : estado_civil
+0.007851 : sexo
+0.007237 : possui_filhos
+
+Features by Relevance (using 'RandomForestClassifier'):
+0.364747 : coeficiente_progressao
+0.140192 : periodo_atual
+0.082718 : coeficiente_rendimento
+0.082230 : aprovacoes_periodo_1
+0.064994 : reprovacoes_por_nota
+0.036498 : aprovacoes
+0.033399 : ano_nascimento
+0.031523 : reprovacoes_por_falta
+0.020725 : forma_ingresso
+0.019437 : reprovacoes_por_falta_periodo_1
+0.016846 : aproveitamentos_periodo_1
+0.015848 : ano_reservista
+0.015420 : sit_enade
+0.014925 : reprovacoes_por_nota_periodo_1
+0.013346 : cod_cidade
+0.012234 : renda_per_capita
+0.011691 : cod_naturalidade
+0.006329 : estado_civil
+0.004881 : grau_instrucao
+0.004164 : possui_filhos
+0.003064 : sexo
+0.002542 : aproveitamentos
+0.002246 : turno
+
+=== Evaluate algorithms ===
+LR:	mean=0.900580 (std=0.036305)
+LDA:	mean=0.920435 (std=0.031862)
+KNN:	mean=0.829903 (std=0.028496)
+CART:	mean=0.854155 (std=0.030428)
+NB:	mean=0.885169 (std=0.032712)
+SVM:	mean=0.642029 (std=0.076338)
+
+ === Standardize the dataset and reevaluate algorithms ===
+ScaledLR:	mean=0.909469 (std=0.030536)
+ScaledLDA:	mean=0.920435 (std=0.031862)
+ScaledKNN:	mean=0.874010 (std=0.033497)
+ScaledCART:	mean=0.852077 (std=0.024489)
+ScaledNB:	mean=0.885169 (std=0.032712)
+ScaledSVM:	mean=0.896280 (std=0.019680)
+
+ === Evaluate Ensemble Algorithms ===
+AB:	mean=0.896280 (std=0.024007)
+GBM:	mean=0.889565 (std=0.020118)
+RF:	mean=0.891691 (std=0.030872)
+ET:	mean=0.891739 (std=0.025541)
+
+Duration: 72.01 
+<<< THEN END - Running Exploratory Data Analysis #1 >>>
+####################################################################
+############### Running Exploratory Data Analysis #2 ###############
+####################################################################
+
+loading ../input/curso_1200.csv ...
+
+=== Data visualizations ===
+histograms
+density
+box and whisker plots
+scatter plot matrix
+correlation matrix
+histograms of standardized data
+density of standardized data
+box and whisker plots of standardized data
+
+=== Split-out train/validation datasets ===
+
+=== Feature Selection ===
+
+Features by Relevance (using 'ExtraTreesClassifier'):
+0.265182 : aprovacoes_periodo_1
+0.108755 : reprovacoes_por_falta_periodo_1
+0.088065 : ano_nascimento
+0.076623 : reprovacoes_por_nota_periodo_1
+0.062326 : forma_ingresso
+0.061632 : renda_per_capita
+0.058714 : cod_cidade
+0.056177 : ano_reservista
+0.053730 : cod_naturalidade
+0.043032 : aproveitamentos_periodo_1
+0.039509 : grau_instrucao
+0.032881 : estado_civil
+0.027224 : turno
+0.015044 : sexo
+0.011105 : possui_filhos
+
+Features by Relevance (using 'RandomForestClassifier'):
+0.231017 : aprovacoes_periodo_1
+0.153371 : reprovacoes_por_falta_periodo_1
+0.089722 : ano_nascimento
+0.085255 : ano_reservista
+0.077431 : reprovacoes_por_nota_periodo_1
+0.060906 : forma_ingresso
+0.058066 : renda_per_capita
+0.056886 : cod_naturalidade
+0.053704 : aproveitamentos_periodo_1
+0.049732 : cod_cidade
+0.024674 : grau_instrucao
+0.021783 : estado_civil
+0.020800 : turno
+0.016013 : sexo
+0.000640 : possui_filhos
+
+=== Evaluate algorithms ===
+LR:	mean=0.790193 (std=0.039178)
+LDA:	mean=0.812367 (std=0.038609)
+KNN:	mean=0.697343 (std=0.060482)
+CART:	mean=0.721739 (std=0.057617)
+NB:	mean=0.772802 (std=0.039563)
+SVM:	mean=0.719517 (std=0.039339)
+
+ === Standardize the dataset and reevaluate algorithms ===
+ScaledLR:	mean=0.821159 (std=0.052725)
+ScaledLDA:	mean=0.812367 (std=0.038609)
+ScaledKNN:	mean=0.774734 (std=0.062129)
+ScaledCART:	mean=0.728454 (std=0.053556)
+ScaledNB:	mean=0.752995 (std=0.049661)
+ScaledSVM:	mean=0.810048 (std=0.042648)
+
+ === Evaluate Ensemble Algorithms ===
+AB:	mean=0.785845 (std=0.053978)
+GBM:	mean=0.772609 (std=0.052163)
+RF:	mean=0.781449 (std=0.037588)
+ET:	mean=0.801353 (std=0.049302)
+
+Duration: 41.37 
+<<< THEN END - Running Exploratory Data Analysis #2 >>>
+####################################################################
+############### Running Exploratory Data Analysis #3 ###############
+####################################################################
+
+loading ../input/curso_1200.csv ...
+
+=== Data visualizations ===
+histograms
+density
+box and whisker plots
+scatter plot matrix
+correlation matrix
+histograms of standardized data
+density of standardized data
+box and whisker plots of standardized data
+
+=== Split-out train/validation datasets ===
+
+=== Feature Selection ===
+
+Features by Relevance (using 'ExtraTreesClassifier'):
+0.262642 : aprovacoes_periodo_1
+0.118265 : reprovacoes_por_falta_periodo_1
+0.100278 : ano_nascimento
+0.080558 : forma_ingresso
+0.080495 : renda_per_capita
+0.078218 : reprovacoes_por_nota_periodo_1
+0.075990 : ano_reservista
+0.073762 : cod_naturalidade
+0.057711 : cod_cidade
+0.042144 : grau_instrucao
+0.029936 : estado_civil
+
+Features by Relevance (using 'RandomForestClassifier'):
+0.277296 : aprovacoes_periodo_1
+0.128876 : ano_nascimento
+0.091543 : reprovacoes_por_falta_periodo_1
+0.091250 : forma_ingresso
+0.082833 : cod_naturalidade
+0.077514 : renda_per_capita
+0.069764 : reprovacoes_por_nota_periodo_1
+0.068028 : ano_reservista
+0.050341 : cod_cidade
+0.038477 : grau_instrucao
+0.024079 : estado_civil
+
+=== Evaluate algorithms ===
+LR:	mean=0.796908 (std=0.040618)
+LDA:	mean=0.810097 (std=0.045751)
+KNN:	mean=0.695072 (std=0.052729)
+CART:	mean=0.721836 (std=0.041125)
+NB:	mean=0.797005 (std=0.036223)
+SVM:	mean=0.712850 (std=0.036991)
+
+ === Standardize the dataset and reevaluate algorithms ===
+ScaledLR:	mean=0.803527 (std=0.040126)
+ScaledLDA:	mean=0.810097 (std=0.045751)
+ScaledKNN:	mean=0.768164 (std=0.053887)
+ScaledCART:	mean=0.695411 (std=0.038877)
+ScaledNB:	mean=0.790386 (std=0.039358)
+ScaledSVM:	mean=0.803430 (std=0.034107)
+
+ === Evaluate Ensemble Algorithms ===
+AB:	mean=0.766135 (std=0.054366)
+GBM:	mean=0.759324 (std=0.032308)
+RF:	mean=0.761546 (std=0.032863)
+ET:	mean=0.783575 (std=0.031334)
+
+Duration: 29.53 
+<<< THEN END - Running Exploratory Data Analysis #3 >>>

@@ -44,13 +44,17 @@ def dataCleansing(dataframe):
     dataframe.drop('reprovacoes_por_falta', axis=1, inplace=True)
     dataframe.drop('aprovacoes', axis=1, inplace=True)
     dataframe.drop('aproveitamentos', axis=1, inplace=True)
+    dataframe.drop('sit_enade', axis=1, inplace=True)
 
     
     #drop attributes with low relevance
-    dataframe.drop('estado_civil', axis=1, inplace=True)
+    #dataframe.drop('estado_civil', axis=1, inplace=True)
     dataframe.drop('sexo', axis=1, inplace=True)
     dataframe.drop('possui_filhos', axis=1, inplace=True)
+
     
+    dataframe.drop('turno', axis=1, inplace=True)
+    dataframe.drop('aproveitamentos_periodo_1', axis=1, inplace=True)
     
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)

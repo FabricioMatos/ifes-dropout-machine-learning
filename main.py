@@ -19,14 +19,24 @@ import lib.eda3 as eda3
 createImagesFlag = True
 
 
-inputFilePath = '../input/curso_1200.csv'
+def run(inputname):
+    inputFilePath = '../input/' + inputname + '.csv'    
+    
+    #run a first exploratory data analyses
+    eda1.run(inputFilePath, 'output/' + inputname + '/eda1/', createImagesFlag)
 
-#run a first exploratory data analyses
-eda1.run(inputFilePath, 'output/eda1/', createImagesFlag)
+    #drop "not fair" features identified in the eda1
+    eda2.run(inputFilePath, 'output/' + inputname + '/eda2/', createImagesFlag)
 
-#drop "not fair" features identified in the eda1
-eda2.run(inputFilePath, 'output/eda2/', createImagesFlag)
+    #try to improve the preliminar results appling "feature selection" techniques
+    eda3.run(inputFilePath, 'output/' + inputname + '/eda3/', createImagesFlag)
+    
 
-#try to improve the preliminar results appling "feature selection" techniques
-eda3.run(inputFilePath, 'output/eda3/', createImagesFlag)
+
+run('curso_1200')   #Bacharelado em Sistemas de Informacao - Campus Serra
+#run('curso_2770')   #Tecnologia em Analise e Desenvolvimento de Sistemas EAD - Campus Serra
+
+#run('curso_360')    #Tecnico em Informatica - Campus Serra
+
+
 

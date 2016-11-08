@@ -86,6 +86,27 @@ def tuneLR(X_train, Y_train, outputPath):
 def tuneLDA(X_train, Y_train, outputPath):
     print 'tune LDA'
     
+    pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
+    scaler = pipeline.fit(X_train)
+    rescaledX = scaler.transform(X_train)
+    
+    #http://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html
+    tol_values = [0.00001, 0.0001, 0.001, 0.01]
+    solver_values = ['svd', 'lsqr', 'eigen']
+    param_grid = dict(tol=tol_values, solver=solver_values)
+    
+    model = LinearDiscriminantAnalysis()
+    
+    kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+    grid = GridSearchCV(estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
+    
+    grid_result = grid.fit(rescaledX, Y_train)
+    print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
+        
+    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
+    for params, mean_score, scores in grid_scores:
+        print("%f (%f) with: %r" % (scores.mean(), scores.std(), params))
+    
     
 # Tune scaled SVM
 def tuneSVM(X_train, Y_train, outputPath):
@@ -149,10 +170,19 @@ def run(inputFilePath, outputPath, createImagesFlag):
     '''
     
     tuneLR(X_train, Y_train, outputPath)
-    #tuneLDA(X_train, Y_train, outputPath)
-    #tuneSVM(X_train, Y_train, outputPath)
+    tuneLDA(X_train, Y_train, outputPath)
+    tuneSVM(X_train, Y_train, outputPath)
+
+    #Best LR
+    #0.819034 (0.045960) with: {'C': 0.1}
     
-    
+    #Best LDA (all the same)
+    #0.812367 (0.038609) with: {'tol': 0.0001, 'solver': 'svd'}
+
+    #Best SVM
+    #0.819034 (0.032162) with: {'kernel': 'sigmoid', 'C': 2.0}
+    #0.814541 (0.040974) with: {'kernel': 'linear', 'C': 0.5}
+    #0.814541 (0.040974) with: {'kernel': 'linear', 'C': 0.7}
     
     duration()    
     print '<<< THEN END - Running Exploratory Data Analysis #3 >>>'

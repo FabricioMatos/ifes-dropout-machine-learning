@@ -211,9 +211,24 @@ def run(inputFilePath, outputPath, createImagesFlag):
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
 
     # tune each algorithm
-    tuneLR(X_train, Y_train, outputPath)
-    tuneLDA(X_train, Y_train, outputPath)
-    tuneSVM(X_train, Y_train, outputPath)
+    try:
+        tuneLR(X_train, Y_train, outputPath)
+    except Exception as e:
+        print "ERROR: couldn't tune LR"
+        print "Message: %s" % str(e)
+        
+    try:
+        tuneLDA(X_train, Y_train, outputPath)
+    except Exception as e:
+        print "ERROR: couldn't tune LDA"
+        print "Message: %s" % str(e)
+        
+    try:
+        tuneSVM(X_train, Y_train, outputPath)
+    except Exception as e:
+        print "ERROR: couldn't tune SVM"
+        print "Message: %s" % str(e)
+        
     
     #print the results comparing the algorithms with the best tune for each one
     drawTunedAlgorithmsComparison(results, names, outputPath)

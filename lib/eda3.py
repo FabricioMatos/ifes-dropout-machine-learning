@@ -94,6 +94,9 @@ def run(inputFilePath, outputPath, createImagesFlag):
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)
     
+    #Compare different feature reduction techniques
+    eda1.compareFeatureReductionTechniques(X_train, Y_train, outputPath)
+    
     # Select the most effective features
     eda1.featureSelection(dataframe.dtypes.keys(), X_train, Y_train)    
     

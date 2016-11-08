@@ -39,4 +39,3 @@ run('curso_1200')   #Bacharelado em Sistemas de Informacao - Campus Serra
 #run('curso_360')    #Tecnico em Informatica - Campus Serra
 
 
-

@@ -213,60 +213,60 @@ box and whisker plots of standardized data
 === Feature Selection ===
 
 Features by Relevance (using 'ExtraTreesClassifier'):
-0.175261 : aprovacoes
-0.155975 : coeficiente_progressao
-0.142752 : coeficiente_rendimento
-0.084324 : periodo_atual
-0.078959 : reprovacoes_por_nota
-0.073697 : aprovacoes_periodo_1
-0.030107 : ano_nascimento
-0.029371 : reprovacoes_por_falta
-0.024912 : renda_per_capita
-0.022981 : forma_ingresso
-0.022583 : cod_naturalidade
-0.022293 : reprovacoes_por_falta_periodo_1
-0.016853 : reprovacoes_por_nota_periodo_1
-0.016619 : cod_cidade
-0.015487 : ano_reservista
-0.014775 : aproveitamentos
-0.014386 : turno
-0.013034 : grau_instrucao
-0.012185 : sit_enade
-0.010827 : estado_civil
-0.010686 : aproveitamentos_periodo_1
-0.009057 : sexo
-0.002875 : possui_filhos
+0.221016 : coeficiente_rendimento
+0.111232 : coeficiente_progressao
+0.091657 : periodo_atual
+0.088791 : aprovacoes
+0.086804 : aprovacoes_periodo_1
+0.055942 : reprovacoes_por_nota
+0.043812 : reprovacoes_por_falta_periodo_1
+0.043657 : ano_nascimento
+0.033876 : forma_ingresso
+0.028787 : reprovacoes_por_nota_periodo_1
+0.027182 : reprovacoes_por_falta
+0.023342 : sit_enade
+0.021701 : turno
+0.019328 : renda_per_capita
+0.016014 : ano_reservista
+0.015860 : cod_cidade
+0.015594 : cod_naturalidade
+0.012819 : aproveitamentos_periodo_1
+0.011014 : grau_instrucao
+0.010067 : estado_civil
+0.009363 : sexo
+0.009265 : aproveitamentos
+0.002878 : possui_filhos
 
 Features by Relevance (using 'RandomForestClassifier'):
-0.211607 : coeficiente_progressao
-0.189699 : periodo_atual
-0.118410 : coeficiente_rendimento
-0.106252 : aprovacoes
-0.073791 : reprovacoes_por_nota
-0.052831 : ano_nascimento
-0.049292 : aprovacoes_periodo_1
-0.026424 : reprovacoes_por_falta_periodo_1
-0.022835 : ano_reservista
-0.018073 : reprovacoes_por_falta
-0.017065 : sit_enade
-0.016799 : reprovacoes_por_nota_periodo_1
-0.015238 : cod_cidade
-0.013305 : aproveitamentos
-0.012845 : forma_ingresso
-0.012349 : turno
-0.011934 : cod_naturalidade
-0.008837 : renda_per_capita
-0.007175 : aproveitamentos_periodo_1
-0.006214 : sexo
-0.004174 : estado_civil
-0.002932 : grau_instrucao
-0.001918 : possui_filhos
+0.249254 : coeficiente_progressao
+0.155949 : periodo_atual
+0.111410 : reprovacoes_por_nota
+0.106865 : coeficiente_rendimento
+0.081195 : aprovacoes
+0.048761 : aprovacoes_periodo_1
+0.039878 : ano_nascimento
+0.035195 : ano_reservista
+0.029131 : forma_ingresso
+0.023160 : sit_enade
+0.016719 : reprovacoes_por_falta_periodo_1
+0.015092 : renda_per_capita
+0.012251 : cod_cidade
+0.011488 : cod_naturalidade
+0.011110 : reprovacoes_por_falta
+0.010941 : reprovacoes_por_nota_periodo_1
+0.008625 : aproveitamentos_periodo_1
+0.007743 : grau_instrucao
+0.006463 : aproveitamentos
+0.005934 : turno
+0.005742 : sexo
+0.004005 : estado_civil
+0.003087 : possui_filhos
 
 === Evaluate algorithms ===
 LR:	mean=0.900580 (std=0.036305)
 LDA:	mean=0.920435 (std=0.031862)
 KNN:	mean=0.829903 (std=0.028496)
-CART:	mean=0.849855 (std=0.024069)
+CART:	mean=0.852077 (std=0.031202)
 NB:	mean=0.885169 (std=0.032712)
 SVM:	mean=0.642029 (std=0.076338)
 
@@ -274,15 +274,15 @@ SVM:	mean=0.642029 (std=0.076338)
 ScaledLR:	mean=0.909469 (std=0.030536)
 ScaledLDA:	mean=0.920435 (std=0.031862)
 ScaledKNN:	mean=0.874010 (std=0.033497)
-ScaledCART:	mean=0.845314 (std=0.037499)
+ScaledCART:	mean=0.862995 (std=0.028136)
 ScaledNB:	mean=0.885169 (std=0.032712)
 ScaledSVM:	mean=0.896280 (std=0.019680)
 
  === Evaluate Ensemble Algorithms ===
 AB:	mean=0.896280 (std=0.024007)
 GBM:	mean=0.889565 (std=0.020118)
-RF:	mean=0.880773 (std=0.039922)
-ET:	mean=0.876473 (std=0.031206)
+RF:	mean=0.880773 (std=0.030040)
+ET:	mean=0.880676 (std=0.020893)
 
 <<< THEN END - Running Exploratory Data Analysis #1 >>>
 ####################################################################
@@ -306,44 +306,44 @@ box and whisker plots of standardized data
 === Feature Selection ===
 
 Features by Relevance (using 'ExtraTreesClassifier'):
-0.275252 : aprovacoes_periodo_1
-0.100684 : reprovacoes_por_falta_periodo_1
-0.093806 : ano_nascimento
-0.069949 : reprovacoes_por_nota_periodo_1
-0.065521 : forma_ingresso
-0.062534 : renda_per_capita
-0.059925 : cod_naturalidade
-0.057427 : ano_reservista
-0.051305 : cod_cidade
-0.047343 : aproveitamentos_periodo_1
-0.039151 : grau_instrucao
-0.026510 : estado_civil
-0.024215 : turno
-0.014485 : sexo
-0.011891 : possui_filhos
+0.277884 : aprovacoes_periodo_1
+0.109183 : reprovacoes_por_falta_periodo_1
+0.092406 : ano_nascimento
+0.072366 : forma_ingresso
+0.068996 : reprovacoes_por_nota_periodo_1
+0.063584 : renda_per_capita
+0.057937 : cod_naturalidade
+0.056240 : ano_reservista
+0.053806 : cod_cidade
+0.042396 : aproveitamentos_periodo_1
+0.033670 : grau_instrucao
+0.026871 : turno
+0.024147 : estado_civil
+0.011641 : sexo
+0.008873 : possui_filhos
 
 Features by Relevance (using 'RandomForestClassifier'):
-0.222407 : aprovacoes_periodo_1
-0.115859 : ano_nascimento
-0.114170 : reprovacoes_por_falta_periodo_1
-0.082284 : ano_reservista
-0.073710 : renda_per_capita
-0.070399 : reprovacoes_por_nota_periodo_1
-0.069937 : cod_naturalidade
-0.061853 : forma_ingresso
-0.048588 : aproveitamentos_periodo_1
-0.046024 : cod_cidade
-0.029727 : turno
-0.027792 : grau_instrucao
-0.017751 : sexo
-0.014415 : estado_civil
-0.005083 : possui_filhos
+0.250706 : aprovacoes_periodo_1
+0.140581 : ano_nascimento
+0.118686 : reprovacoes_por_falta_periodo_1
+0.074423 : renda_per_capita
+0.067701 : cod_naturalidade
+0.062643 : ano_reservista
+0.055842 : cod_cidade
+0.050214 : forma_ingresso
+0.048670 : reprovacoes_por_nota_periodo_1
+0.031489 : turno
+0.031229 : aproveitamentos_periodo_1
+0.026148 : grau_instrucao
+0.020476 : estado_civil
+0.015943 : sexo
+0.005247 : possui_filhos
 
 === Evaluate algorithms ===
 LR:	mean=0.785749 (std=0.043838)
 LDA:	mean=0.812367 (std=0.038609)
 KNN:	mean=0.697343 (std=0.060482)
-CART:	mean=0.728406 (std=0.051020)
+CART:	mean=0.735024 (std=0.048910)
 NB:	mean=0.772802 (std=0.039563)
 SVM:	mean=0.719517 (std=0.039339)
 
@@ -351,15 +351,15 @@ SVM:	mean=0.719517 (std=0.039339)
 ScaledLR:	mean=0.821159 (std=0.052725)
 ScaledLDA:	mean=0.812367 (std=0.038609)
 ScaledKNN:	mean=0.774734 (std=0.062129)
-ScaledCART:	mean=0.710773 (std=0.063305)
+ScaledCART:	mean=0.717391 (std=0.039722)
 ScaledNB:	mean=0.752995 (std=0.049661)
 ScaledSVM:	mean=0.810048 (std=0.042648)
 
  === Evaluate Ensemble Algorithms ===
 AB:	mean=0.785845 (std=0.053978)
-GBM:	mean=0.774831 (std=0.052805)
-RF:	mean=0.803333 (std=0.048551)
-ET:	mean=0.759130 (std=0.086689)
+GBM:	mean=0.770386 (std=0.051417)
+RF:	mean=0.772464 (std=0.053130)
+ET:	mean=0.798889 (std=0.053606)
 
 <<< THEN END - Running Exploratory Data Analysis #2 >>>
 ####################################################################
@@ -374,7 +374,7 @@ loading ../input/curso_1200.csv ...
 LR:	mean=0.785749 (std=0.043838)
 LDA:	mean=0.812367 (std=0.038609)
 KNN:	mean=0.697343 (std=0.060482)
-CART:	mean=0.726087 (std=0.049685)
+CART:	mean=0.732754 (std=0.049671)
 NB:	mean=0.772802 (std=0.039563)
 SVM:	mean=0.719517 (std=0.039339)
 
@@ -382,19 +382,19 @@ SVM:	mean=0.719517 (std=0.039339)
 ScaledLR:	mean=0.816812 (std=0.050291)
 ScaledLDA:	mean=0.812367 (std=0.038609)
 ScaledKNN:	mean=0.772512 (std=0.050124)
-ScaledCART:	mean=0.743961 (std=0.054121)
+ScaledCART:	mean=0.735072 (std=0.063289)
 ScaledNB:	mean=0.790338 (std=0.044079)
 ScaledSVM:	mean=0.812319 (std=0.047945)
 
  === Evaluate Ensemble Algorithms ===
 AB:	mean=0.765845 (std=0.053352)
-GBM:	mean=0.783720 (std=0.054866)
-RF:	mean=0.790290 (std=0.030106)
-ET:	mean=0.774928 (std=0.049676)
+GBM:	mean=0.783768 (std=0.047864)
+RF:	mean=0.797101 (std=0.045965)
+ET:	mean=0.761594 (std=0.036575)
 
 <<< THEN END - Running Exploratory Data Analysis #3 >>>
 ####################################################################
-############### Running Exploratory Data Analysis #3 ###############
+############### Running Exploratory Data Analysis #4 ###############
 ####################################################################
 
 loading ../input/curso_1200.csv ...
@@ -472,4 +472,4 @@ Best: 0.818985 using {'kernel': 'sigmoid', 'C': 2.0}
 0.811626 (0.001041) - LDA => Best Params: {'tol': 1e-05, 'solver': 'svd'}
 0.792163 (0.038358) - SVM => Best Params: {'kernel': 'sigmoid', 'C': 2.0}
 
-<<< THEN END - Running Exploratory Data Analysis #3 >>>
+<<< THEN END - Running Exploratory Data Analysis #4 >>>

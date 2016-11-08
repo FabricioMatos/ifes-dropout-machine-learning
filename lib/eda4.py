@@ -139,6 +139,30 @@ def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
     plt.close('all')
     
     
+# Tune scaled SVM
+def tuneSVM(X_train, Y_train, outputPath):
+    print 'tune SVM'
+
+    scaler = StandardScaler().fit(X_train)
+    rescaledX = scaler.transform(X_train)
+
+    c_values = [0.1, 0.3, 0.5, 0.7, 0.9, 1.0, 1.3, 1.5, 1.7, 2.0]
+    kernel_values = ['linear', 'poly', 'rbf', 'sigmoid']
+    param_grid = dict(C=c_values, kernel=kernel_values)
+    
+    model = SVC()
+    
+    kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+    grid = GridSearchCV(estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
+    
+    grid_result = grid.fit(rescaledX, Y_train)
+    print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
+        
+    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
+    for params, mean_score, scores in grid_scores:
+        print("%f (%f) with: %r" % (scores.mean(), scores.std(), params))
+        
+        
 # ===================================================
 # ================== main function ==================
 # ===================================================
@@ -162,22 +186,28 @@ def run(inputFilePath, outputPath, createImagesFlag):
     
     # drop out 'not fair' features
     dataframe = eda2.dataCleansing(dataframe)
+    dataframe.to_csv(inputFilePath[:-4] + '-cleaned.csv')
+    
         
     # Understand the data
-    eda1.descriptiveStatistics(dataframe, outputPath)
-    eda1.dataVisualizations(dataframe, outputPath)
+    #eda1.descriptiveStatistics(dataframe, outputPath)
+    #eda1.dataVisualizations(dataframe, outputPath)
         
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
+
+    '''
+    ScaledLR:	mean=0.816812 (std=0.050291)
+    ScaledLDA:	mean=0.812367 (std=0.038609)
+    ScaledSVM:	mean=0.812319 (std=0.047945)    
+    ScaledNB:	mean=0.790338 (std=0.044079)
+    ScaledKNN:	mean=0.772512 (std=0.050124)
+    ScaledCART:	mean=0.739614 (std=0.043244)
+    '''
     
-    # Evaluate Algorithms
-    eda1.evaluteAlgorithms(X_train, Y_train, outputPath)
+    tuneSVM(X_train, Y_train, outputPath)
     
-    # Standardize the dataset, reduce features using PCA and reevaluate the same algorithms
-    standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath)
     
-    # Standardize the dataset, reduce features using PCA and evaluate Ensemble Algorithms
-    evaluateEnsembleAlgorith(X_train, Y_train, outputPath)
     
     duration()    
     print '<<< THEN END - Running Exploratory Data Analysis #3 >>>'

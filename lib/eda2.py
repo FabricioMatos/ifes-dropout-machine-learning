@@ -49,7 +49,6 @@ def dataCleansing(dataframe):
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)
     
-    
     return dataframe
     
     
@@ -76,6 +75,8 @@ def run(inputFilePath, outputPath, createImagesFlag):
     dataframe = eda1.loadDataframe(inputFilePath)
     
     dataframe = dataCleansing(dataframe)
+    dataframe.to_csv(inputFilePath[:-4] + '-cleaned.csv')
+    
     
     # Understand the data
     #eda1.descriptiveStatistics(dataframe, outputPath)

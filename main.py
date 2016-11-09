@@ -15,10 +15,10 @@ import pandas
 import numpy
 import lib.ifes_graduate_diploma_ml_model as ifes_model
 
-def train(inputname):
+def train(inputname, modelname):
     #set the path to the in/out files
-    inputFilePath = '../input/' + inputname + '.csv'
-    outputFileNameForModel = 'output/' + inputname + '_LR_model.sav'
+    inputFilePath = '../input/%s.csv' % inputname
+    outputFileNameForModel = 'output/%s_LR.joblib' % modelname
 
     #train the classification model and save it to outputFileNameForModel
     ifes_model.trainStudentDropoutPrediction(inputFilePath, outputFileNameForModel)
@@ -32,22 +32,24 @@ def predict(inputname, modelname):
     print 'Params: inputname="%s" modelname="%s"' % (inputname, modelname)
     print
     
-    modelFileName = 'output/' + inputname+ '_LR_model.sav'
-    inputFileName = '../input/' + inputname + '.csv'
-    outputFileName = 'output/' + inputname + '_predictions.csv'
+    modelFileName = 'output/%s_LR.joblib' % modelname
+    inputFileName = '../input/%s.csv' % inputname
+    outputFileName = 'output/%s_%s_predictions.csv' % (inputname, modelname)
 
     # predict and return a matrix with ['hash_cod_matricula', 'dropout-predicion']
     dataframe = ifes_model.predictFromFile(modelFileName, inputFileName, outputFileName)
     
     print dataframe.groupby('dropout-predicion').size()
     
+    ifes_model.checkPredictionAccuracy(dataframe, inputFileName)
+    
 
         
-train(inputname='curso_1200')
-train(inputname='curso_2770')
+train(inputname='curso_1200', modelname='model_1200')
+train(inputname='curso_2770', modelname='model_2770')
 
-predict(inputname='curso_1200', modelname='curso_1200')
-predict(inputname='curso_2770', modelname='curso_2770')
-predict(inputname='curso_2770', modelname='curso_1200')
-predict(inputname='curso_1200', modelname='curso_2770')
+predict(inputname='curso_1200', modelname='model_1200')
+predict(inputname='curso_2770', modelname='model_2770')
+predict(inputname='curso_2770', modelname='model_1200')
+predict(inputname='curso_1200', modelname='model_2770')
 

@@ -136,9 +136,9 @@ def predictFromFile(modelFileName, inputFileName, outputFileName):
     trainedModel = joblib.load(modelFileName)
     
     # apply the model to the input X and get all predicions
-    prediction = predict(trainedModel, X)
+    prediction = predict(trainedModel, X).astype(int)
     
-    # transform the predicion result from [1. 0. 1. 1. ...] to [[1.] [0.] [1.] [1.] ...] 
+    # transform the predicion result from [1 0 1 1 ...] to [[1] [0] [1] [1] ...] 
     # in order to concatenate the predicion with the X_objectIDs
     prediction = prediction.reshape((len(prediction), 1))
 
@@ -159,10 +159,8 @@ def predict(trainedModel, X):
     
     return predictions
 
-def testModelAccuracy(trainedModel, X_validation, Y_validation):
+def printModelAccuracy(Y_validation, predictions):
     print '\n=== Model Accuracy ==='
-   
-    predictions = predict(trainedModel, X_validation)
 
     print '\naccuracy_score:'
     print(accuracy_score(Y_validation, predictions))
@@ -173,12 +171,24 @@ def testModelAccuracy(trainedModel, X_validation, Y_validation):
     print '\nclassification_report:'
     print(classification_report(Y_validation, predictions))
     
+def checkPredictionAccuracy(predictionsDataframe, inputFileName):
+    # extract the Y_validation from CSV file (assuming it's the last column)
+    dataframe = loadDataframe(inputFileName)    
+    ncolumns = dataframe.shape[1]
+    Y_validation = dataframe.values[:,ncolumns-1].astype(int) 
+    
+    # extract the predictions from predictionsDataframe (assuming it's the last column)
+    pncolumns = predictionsDataframe.shape[1]
+    predictions = predictionsDataframe.values[:,pncolumns-1].astype(int)
+
+    # print accuracy reports
+    printModelAccuracy(Y_validation, predictions)    
         
 def trainStudentDropoutPrediction(inputFilePath, outputFileNameForModel):
     print 
-    print '#########################################################################'
-    print '######### Machine Learning Model for Student Dropout Prediction #########'
-    print '#########################################################################'
+    print '####################################################################'
+    print '######### TRAINING ML Model for Student Dropout Prediction #########'
+    print '####################################################################'
     print 
     
     # Load dataset
@@ -192,6 +202,7 @@ def trainStudentDropoutPrediction(inputFilePath, outputFileNameForModel):
 
     # train an Logistic Regression model and save it to outputFileNameForModel
     trainedModel = trainAndSaveLRModel(X_train, Y_train, outputFileNameForModel)
-
+    
     #test the model accuracy with the test dataset X_validation
-    testModelAccuracy(trainedModel, X_validation, Y_validation)
+    predictions = predict(trainedModel, X_validation)
+    printModelAccuracy(Y_validation, predictions)

@@ -82,12 +82,11 @@ def splitoutValidationDataset(dataframe):
     return (X_train, X_validation, Y_train, Y_validation)
 
 def rescaleData(X):
-    #pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
     pipeline = Pipeline([('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
 
     scaler = pipeline.fit(X)
     rescaledX = scaler.transform(X)
-    
+
     return rescaledX
 
     

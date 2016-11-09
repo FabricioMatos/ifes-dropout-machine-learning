@@ -44,7 +44,6 @@ params = []
 
 #load Dataframe from file/url
 def loadDataframe(filename):
-    print 'loading ' + filename + ' ...'
     return pandas.read_csv(filename, header=0, sep=';')
 
 #drop not interesting columns and fill NaN values

@@ -164,9 +164,11 @@ def printModelAccuracy(Y_validation, predictions):
     print(accuracy_score(Y_validation, predictions))
     
     print '\nconfusion_matrix:'
+    print '=> By definition a confusion matrix C is such that C_{i, j} is equal to the number of observations known to be in group i but predicted to be in group j.'
     print(confusion_matrix(Y_validation, predictions))
     
     print '\nclassification_report:'
+    print '=> http://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/'
     print(classification_report(Y_validation, predictions))
     
 def checkPredictionAccuracy(predictionsDataframe, inputFileName):

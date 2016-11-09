@@ -137,7 +137,11 @@ def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
         imageidx += 1
     
     plt.close('all')
+
     
+def set_createImages(value):
+    global createImages
+    createImages = value
     
 # ===================================================
 # ================== main function ==================
@@ -150,6 +154,7 @@ def run(inputFilePath, outputPath, createImagesFlag):
     print '####################################################################'
     print ''
     
+    set_createImages(createImagesFlag)
     start = time.clock()
     eda1.reset_imageidx()
     eda1.set_createImages(createImagesFlag)

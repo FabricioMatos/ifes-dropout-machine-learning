@@ -16,8 +16,8 @@ import lib.eda3 as eda3
 import lib.eda4 as eda4
 
 #debug flags
-#createImagesFlag = False
-createImagesFlag = True
+createImagesFlag = False
+#createImagesFlag = True
 
 
 def run(inputname):
@@ -36,7 +36,7 @@ def run(inputname):
     eda4.run(inputFilePath, 'output/' + inputname + '/eda4/', createImagesFlag)
 
 
-run('curso_1200')   #Bacharelado em Sistemas de Informacao - Campus Serra
-#run('curso_2770')   #Tecnologia em Analise e Desenvolvimento de Sistemas EAD - Campus Serra
+#run('curso_1200')   #Bacharelado em Sistemas de Informacao - Campus Serra
+run('curso_2770')   #Tecnologia em Analise e Desenvolvimento de Sistemas EAD - Campus Serra
 
 

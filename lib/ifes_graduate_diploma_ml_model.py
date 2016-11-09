@@ -50,6 +50,7 @@ def loadDataframe(filename):
 #drop not interesting columns and fill NaN values
 def dataCleansing(dataframe):
     #axis: 0 for rows and 1 for columns
+    dataframe.drop('hash_cod_matricula', axis=1, inplace=True)
     dataframe.drop('cep', axis=1, inplace=True)
     dataframe.drop('sit_matricula', axis=1, inplace=True)
 
@@ -110,20 +111,47 @@ def trainAndSaveLRModel(X_train, Y_train, outputFileNameForModel):
     return model
 
 
-def predictFromFile(modelFileName, inputFileName):
+def predictFromFile(modelFileName, inputFileName, outputFileName):
     # Load dataset
     dataframe = loadDataframe(inputFileName)
-    
-    # drop out 'not fair' features
+
+    # extract a matrix with the first column (student ID)
+    X_objectIDs = dataframe.values[:,0:1]    
+    '''
+    [['0x002E7963AB8B4E0DC2A73FBD0916783A05BC54B2']
+     ['0x00A6E19710B815EB9CD28DA63393D50D215D8C14']
+     ['0x023AF122E0EAF0F437DB18D67E89EFC607002F25']
+     (...)
+     ['0x02BE59FF1EA063895E2DFFCAF894197B87A7CBD8']]
+    '''
+        
+    # drop out 'not fair' features and replace NaN with 0
     dataframe = dataCleansing(dataframe)
 
     # extract the input X from dataframe (matrix with 15 dimensions)
+    # at the end, just drop the 16 column which is the 'evadiu' (dropout?) if it exists
     X = dataframe.values[:,0:15]    
     
     # load trained model
     trainedModel = joblib.load(modelFileName)
     
-    return predict(trainedModel, X)
+    # apply the model to the input X and get all predicions
+    prediction = predict(trainedModel, X)
+    
+    # transform the predicion result from [1. 0. 1. 1. ...] to [[1.] [0.] [1.] [1.] ...] 
+    # in order to concatenate the predicion with the X_objectIDs
+    prediction = prediction.reshape((len(prediction), 1))
+
+    # merge the student ID with dropout predicion result
+    id_and_prediction = numpy.concatenate((X_objectIDs, prediction), axis=1)
+    
+    # transform the array into a DataFrame
+    resultDataframe = pandas.DataFrame(id_and_prediction, columns=['hash_cod_matricula', 'dropout-predicion'])
+    
+    # save the result to a CSV file
+    resultDataframe.to_csv(outputFileName, sep=';')
+    
+    return resultDataframe
 
 def predict(trainedModel, X):
     rescaledX = rescaleData(X)

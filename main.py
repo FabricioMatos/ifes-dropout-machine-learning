@@ -11,12 +11,11 @@ After exploring many algorithms and data preparing techniques
 '''
 
 # Load libraries
+import pandas
+import numpy
 import lib.ifes_graduate_diploma_ml_model as ifes_model
 
-def train():
-    inputname = 'curso_1200' 
-    #inputname = 'curso_2770' 
-
+def train(inputname):
     #set the path to the in/out files
     inputFilePath = '../input/' + inputname + '.csv'
     outputFileNameForModel = 'output/' + inputname + '_LR_model.sav'
@@ -25,17 +24,30 @@ def train():
     ifes_model.trainStudentDropoutPrediction(inputFilePath, outputFileNameForModel)
 
 
-def predict():    
+def predict(inputname, modelname):    
+    print 
+    print '###############################################'
+    print '#########  Student Dropout Prediction #########'
+    print '###############################################'
+    print 'Params: inputname="%s" modelname="%s"' % (inputname, modelname)
+    print
     
-    modelFileName = 'output/curso_1200_LR_model.sav'
-    inputFileName = '../input/curso_2770.csv'
+    modelFileName = 'output/' + inputname+ '_LR_model.sav'
+    inputFileName = '../input/' + inputname + '.csv'
+    outputFileName = 'output/' + inputname + '_predictions.csv'
 
-    # predict
-    prediction = ifes_model.predictFromFile(modelFileName, inputFileName)
+    # predict and return a matrix with ['hash_cod_matricula', 'dropout-predicion']
+    dataframe = ifes_model.predictFromFile(modelFileName, inputFileName, outputFileName)
+    
+    print dataframe.groupby('dropout-predicion').size()
+    
 
-    print prediction
         
-        
-#train()
-predict()
+train(inputname='curso_1200')
+train(inputname='curso_2770')
+
+predict(inputname='curso_1200', modelname='curso_1200')
+predict(inputname='curso_2770', modelname='curso_2770')
+predict(inputname='curso_2770', modelname='curso_1200')
+predict(inputname='curso_1200', modelname='curso_2770')
 

@@ -8,3 +8,11 @@ Since the Brazilian federal anual budget for each Federal Institute of Education
 Our objectives for this ‘IFES Pilot Project' study is build a preliminary Machine Learning Model to process student's data available after the 1st year/semester in order to predict dropouts with high accuracy.
 
 This pilot study is just the first step of a much bigger and complex data science project.
+
+# Initial Results
+
+For a pilot project, the results were very motivating. 
+
+The algorithm with the best response was a Logistic Regression with a stronger regularization strength (C=0.1).
+
+The prediction accuracy of the finalized model for the test set was very good (Avg. precision = 85%). 

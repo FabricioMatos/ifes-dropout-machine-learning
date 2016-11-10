@@ -1,5 +1,5 @@
-# ifes-dropout-machine-learning
-Student’s dropout prediction for Brazilian Federal Institutes of Education, Science and Technology
+# IFES Dropout Machine Learning Study
+Student’s dropout prediction for the Brazilian Federal Institute of Education, Science and Technology of Espirito Santo using Machine Learning with Python.
 
 # The Problem
 

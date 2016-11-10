@@ -16,3 +16,12 @@ For a pilot project, the results were very motivating.
 The algorithm with the best response was a Logistic Regression with a stronger regularization strength (C=0.1).
 
 The prediction accuracy of the finalized model for the test set was very good (Avg. precision = 85%). 
+
+# The Analyses Process
+
+- EDA1 (Exploratory Data Analyses #1): understand the data available, clean, scale and standardize the data. Also run different binary classifier algorithms and check the preliminary results;
+- EDA2: dropout inappropriate features identified in EDA1 and run the same algorithms again;
+- EDA3: explore feature reduction techniques in order to check if they can improve the results;
+- EDA4: tune the 3 best algorithms and choose the best one;
+- Train the chosen model, save it, run the predictions for unseen test sets and evaluate the results accuracy;
+- Report the results and suggest the next steps.

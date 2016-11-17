@@ -34,7 +34,6 @@ def dataCleansing(dataframe):
     #axis: 0 for rows and 1 for columns
     dataframe.drop('hash_cod_matricula', axis=1, inplace=True)
     dataframe.drop('cep', axis=1, inplace=True)
-    dataframe.drop('sit_matricula', axis=1, inplace=True)
 
     #drop attributes impacted for the fact that the student isn't sduding anymore.
     #we want attributes that would be the same for students starting the second semester

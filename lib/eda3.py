@@ -166,7 +166,7 @@ def run(inputFilePath, outputPath, createImagesFlag):
     dataframe = eda1.loadDataframe(inputFilePath)
     
     # drop out 'not fair' features
-    dataframe = eda2.dataCleansing(dataframe)
+    dataframe = eda1.dataCleansing(dataframe)
         
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    

@@ -73,7 +73,6 @@ def dataCleansing(dataframe):
     #axis: 0 for rows and 1 for columns
     dataframe.drop('hash_cod_matricula', axis=1, inplace=True)
     dataframe.drop('cep', axis=1, inplace=True)
-    dataframe.drop('sit_matricula', axis=1, inplace=True)
 
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)

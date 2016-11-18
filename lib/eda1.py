@@ -69,11 +69,18 @@ def loadDataframe(filename):
     return pandas.read_csv(filename, header=0, sep=';')
 
 #drop not interesting columns and fill NaN values
-def dataCleansing(dataframe):
+def dataCleansing(dataframe, dropColumns):
     #axis: 0 for rows and 1 for columns
     dataframe.drop('hash_cod_matricula', axis=1, inplace=True)
     dataframe.drop('cep', axis=1, inplace=True)
 
+    for column in dropColumns:
+        dataframe.drop(column, axis=1, inplace=True)
+    
+    #dataframe.drop('cod_instituicao', axis=1, inplace=True)
+    #dataframe.drop('cod_curso', axis=1, inplace=True)
+    
+    
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)
     
@@ -358,6 +365,8 @@ def get_imageidx():
 def compareFeatureReductionTechniques(X_train, Y_train, outputPath):
     global imageidx
 
+    print '\n === Compare Feature Reduction Techniques ==='
+
     pipe = Pipeline([
         ('reduce_dim', PCA()),
         ('classify', SVC())
@@ -410,7 +419,7 @@ def compareFeatureReductionTechniques(X_train, Y_train, outputPath):
 # ===================================================
 # ================== main function ==================
 # ===================================================
-def run(inputFilePath, outputPath, createImagesFlag):
+def run(inputFilePath, outputPath, createImagesFlag, dropColumns):
     global imageidx
     global start
 
@@ -428,7 +437,7 @@ def run(inputFilePath, outputPath, createImagesFlag):
         
     # Load dataset
     dataframe = loadDataframe(inputFilePath)
-    dataframe = dataCleansing(dataframe)
+    dataframe = dataCleansing(dataframe, dropColumns)
     
     # Understand the data
     descriptiveStatistics(dataframe, outputPath)
@@ -437,8 +446,9 @@ def run(inputFilePath, outputPath, createImagesFlag):
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = splitoutValidationDataset(dataframe)
 
-    #Compare different feature reduction techniques
-    compareFeatureReductionTechniques(X_train, Y_train, outputPath)
+    if (len(X_train) < 1000):
+        #Compare different feature reduction techniques
+        compareFeatureReductionTechniques(X_train, Y_train, outputPath)
     
     # Select the most effective features
     featureSelection(dataframe.columns, X_train, Y_train)    

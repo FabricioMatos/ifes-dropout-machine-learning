@@ -38,7 +38,7 @@ from sklearn.decomposition import PCA, NMF
 from sklearn.feature_selection import SelectKBest, chi2
 
 import lib.eda1 as eda1
-import lib.eda2 as eda2
+import lib.eda3 as eda3
 
 
 #constants
@@ -47,6 +47,7 @@ NUM_FOLDS = 10
 RAND_SEED = 7
 SCORING = 'accuracy'
 VALIDATION_SIZE = 0.20
+N_JOBS = 6
 
 #global variables
 start = time.clock()
@@ -56,23 +57,29 @@ results = []
 names = []
 params = []
 
-
-def tuneLR(X_train, Y_train, outputPath):
+# RandomForestClassifier
+def tuneRF(X_train, Y_train, outputPath):
     global results, names, params
     
-    print 'tune LR'
+    print 'tune LR (Random Forest Classifier)'
     
     pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
     scaler = pipeline.fit(X_train)
     rescaledX = scaler.transform(X_train)
+
+    #tune para meters
+    # http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+    #n_estimators_values = [5, 10, 100, 1000, 3000]
+    n_estimators_values = [1000]
+    max_features_values = [0.1, 'auto', 'sqrt', 'log2', None] # (float)0.1=>10%
+    criterion_values = ['gini', 'entropy']
     
-    c_values = [0.001, 0.01, 0.1, 1, 10, 100, 1000]
-    param_grid = dict(C=c_values)
+    param_grid = dict(n_estimators=n_estimators_values, max_features=max_features_values, criterion=criterion_values)
     
-    model = LogisticRegression()
+    model = RandomForestClassifier()
     
     kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
-    grid = GridSearchCV(n_jobs=-1, estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
+    grid = GridSearchCV(n_jobs=N_JOBS, verbose=10, estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
     
     grid_result = grid.fit(rescaledX, Y_train)
     print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
@@ -83,31 +90,36 @@ def tuneLR(X_train, Y_train, outputPath):
     cv_results = grid_result.cv_results_['mean_test_score']
     
     results.append(cv_results)
-    names.append('LR')
+    names.append('RF')
     params.append('%s' % grid_result.cv_results_['params'][best_idx])
         
     grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
     for param, mean_score, scores in grid_scores:
         print("%f (%f) with: %r" % (scores.mean(), scores.std(), param))
 
-def tuneLDA(X_train, Y_train, outputPath):
+# ExtraTreesClassifier
+def tuneET(X_train, Y_train, outputPath):
     global results, names, params
     
-    print 'tune LDA'
+    print 'tune ET (Extra Trees Classifier)'
     
     pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
     scaler = pipeline.fit(X_train)
     rescaledX = scaler.transform(X_train)
     
-    #http://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html
-    tol_values = [0.00001, 0.0001, 0.001, 0.01]
-    solver_values = ['svd', 'lsqr', 'eigen']
-    param_grid = dict(tol=tol_values, solver=solver_values)
+    #tune para meters
+    # http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html
+    #n_estimators_values = [5, 10, 100, 1000, 3000]
+    n_estimators_values = [1000]
+    max_features_values = [0.1, 'auto', 'sqrt', 'log2', None] # (float)0.1=>10%
+    criterion_values = ['gini', 'entropy']
     
-    model = LinearDiscriminantAnalysis()
+    param_grid = dict(n_estimators=n_estimators_values, max_features=max_features_values, criterion=criterion_values)
+    
+    model = ExtraTreesClassifier()
     
     kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
-    grid = GridSearchCV(n_jobs=-1, estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
+    grid = GridSearchCV(n_jobs=N_JOBS, verbose=10, estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
     
     grid_result = grid.fit(rescaledX, Y_train)
     print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
@@ -130,20 +142,20 @@ def tuneLDA(X_train, Y_train, outputPath):
 def tuneSVM(X_train, Y_train, outputPath):
     global results, names, params
     
-    print 'tune SVM'
+    print 'tune SVM (Support Vector Machines Classifier)'
 
     pipeline = Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler())])
     scaler = pipeline.fit(X_train)
     rescaledX = scaler.transform(X_train)
     
-    c_values = [0.1, 0.3, 0.5, 0.7, 0.9, 1.0, 1.3, 1.5, 1.7, 2.0]
+    c_values = [0.1, 1.0, 100.0, 10000.0, 100000.0]
     kernel_values = ['linear', 'poly', 'rbf', 'sigmoid']
     param_grid = dict(C=c_values, kernel=kernel_values)
     
     model = SVC()
     
     kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
-    grid = GridSearchCV(n_jobs=-1, estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
+    grid = GridSearchCV(n_jobs=N_JOBS, verbose=10, estimator=model, param_grid=param_grid, scoring=SCORING, cv=kfold)
     
     grid_result = grid.fit(rescaledX, Y_train)
     print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))    
@@ -192,7 +204,7 @@ def set_createImages(value):
 # ===================================================
 # ================== main function ==================
 # ===================================================
-def run(inputFilePath, outputPath, createImagesFlag):
+def run(inputFilePath, outputPath, createImagesFlag, dropColumns):
     global start
 
     print '####################################################################'
@@ -212,22 +224,22 @@ def run(inputFilePath, outputPath, createImagesFlag):
     dataframe = eda1.loadDataframe(inputFilePath)
     
     # drop out 'not fair' features
-    dataframe = eda1.dataCleansing(dataframe)
+    dataframe = eda1.dataCleansing(dataframe, dropColumns)
             
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
 
     # tune each algorithm
     try:
-        tuneLR(X_train, Y_train, outputPath)
+        tuneRF(X_train, Y_train, outputPath)
     except Exception as e:
-        print "ERROR: couldn't tune LR"
+        print "ERROR: couldn't tune RF"
         print "Message: %s" % str(e)
         
     try:
-        tuneLDA(X_train, Y_train, outputPath)
+        tuneET(X_train, Y_train, outputPath)
     except Exception as e:
-        print "ERROR: couldn't tune LDA"
+        print "ERROR: couldn't tune ET"
         print "Message: %s" % str(e)
         
     try:

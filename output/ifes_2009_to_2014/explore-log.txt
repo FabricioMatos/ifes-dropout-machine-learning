@@ -172,50 +172,50 @@ box and whisker plots of standardized data
 === Feature Selection ===
 
 Features by Relevance (using 'ExtraTreesClassifier'):
-0.236515 : aprovacoes_periodo_1
-0.081395 : cod_instituicao
-0.080672 : cod_curso
-0.067211 : ano_nascimento
-0.066956 : reprovacoes_por_falta_periodo_1
-0.058725 : reprovacoes_por_nota_periodo_1
-0.056799 : cod_naturalidade
-0.052211 : cod_cidade
-0.051966 : ano_letivo_ini
-0.051047 : forma_ingresso
-0.040527 : renda_per_capita
-0.039048 : turno
-0.038503 : grau_instrucao
-0.026361 : ano_reservista
-0.026277 : estado_civil
-0.010683 : aproveitamentos_periodo_1
-0.008639 : sexo
-0.006466 : possui_filhos
+0.227542 : aprovacoes_periodo_1
+0.083616 : cod_curso
+0.081541 : reprovacoes_por_falta_periodo_1
+0.075378 : cod_instituicao
+0.067568 : ano_nascimento
+0.058562 : reprovacoes_por_nota_periodo_1
+0.055321 : cod_naturalidade
+0.051495 : cod_cidade
+0.046392 : ano_letivo_ini
+0.046058 : forma_ingresso
+0.041906 : grau_instrucao
+0.041034 : renda_per_capita
+0.038113 : turno
+0.029254 : estado_civil
+0.026925 : ano_reservista
+0.011752 : sexo
+0.010484 : aproveitamentos_periodo_1
+0.007060 : possui_filhos
 
 Features by Relevance (using 'RandomForestClassifier'):
-0.202210 : aprovacoes_periodo_1
-0.102430 : cod_curso
-0.088295 : reprovacoes_por_falta_periodo_1
-0.079805 : ano_nascimento
-0.077216 : cod_instituicao
-0.063364 : cod_naturalidade
-0.060089 : reprovacoes_por_nota_periodo_1
-0.059479 : cod_cidade
-0.048843 : forma_ingresso
-0.046372 : ano_letivo_ini
-0.036349 : renda_per_capita
-0.030656 : grau_instrucao
-0.029114 : turno
-0.028231 : ano_reservista
-0.023240 : estado_civil
-0.011020 : sexo
-0.008791 : aproveitamentos_periodo_1
-0.004494 : possui_filhos
+0.220287 : aprovacoes_periodo_1
+0.099841 : cod_curso
+0.079682 : ano_nascimento
+0.075319 : cod_instituicao
+0.072523 : reprovacoes_por_falta_periodo_1
+0.062950 : cod_naturalidade
+0.060198 : cod_cidade
+0.055498 : reprovacoes_por_nota_periodo_1
+0.051154 : forma_ingresso
+0.046042 : ano_letivo_ini
+0.036040 : renda_per_capita
+0.033860 : grau_instrucao
+0.029505 : turno
+0.028661 : ano_reservista
+0.023014 : estado_civil
+0.011444 : sexo
+0.009683 : aproveitamentos_periodo_1
+0.004298 : possui_filhos
 
 === Evaluate algorithms ===
-LR:	mean=0.791182 (std=0.006637)
+LR:	mean=0.791320 (std=0.006605)
 LDA:	mean=0.787583 (std=0.007485)
 KNN:	mean=0.738280 (std=0.004709)
-CART:	mean=0.820667 (std=0.004039)
+CART:	mean=0.820828 (std=0.004649)
 NB:	mean=0.750923 (std=0.005715)
 SVM:	mean=0.722868 (std=0.006261)
 
@@ -223,15 +223,15 @@ SVM:	mean=0.722868 (std=0.006261)
 ScaledLR:	mean=0.786637 (std=0.006488)
 ScaledLDA:	mean=0.787583 (std=0.007485)
 ScaledKNN:	mean=0.805671 (std=0.007357)
-ScaledCART:	mean=0.820644 (std=0.003068)
+ScaledCART:	mean=0.820344 (std=0.005952)
 ScaledNB:	mean=0.751523 (std=0.006290)
 ScaledSVM:	mean=0.832179 (std=0.005826)
 
  === Evaluate Ensemble Algorithms ===
 AB:	mean=0.808255 (std=0.007756)
 GBM:	mean=0.844269 (std=0.005394)
-RF:	mean=0.859911 (std=0.003629)
-ET:	mean=0.852759 (std=0.003263)
+RF:	mean=0.858965 (std=0.004577)
+ET:	mean=0.852644 (std=0.003940)
 
 <<< THEN END - Running Exploratory Data Analysis #1 >>>
 ####################################################################
@@ -243,10 +243,10 @@ loading ../input/ifes_2009_to_2014.csv ...
 === Split-out train/validation datasets ===
 
 === Evaluate algorithms ===
-LR:	mean=0.791113 (std=0.006454)
+LR:	mean=0.790974 (std=0.006196)
 LDA:	mean=0.787583 (std=0.007485)
 KNN:	mean=0.738280 (std=0.004709)
-CART:	mean=0.820367 (std=0.006015)
+CART:	mean=0.821151 (std=0.004369)
 NB:	mean=0.750923 (std=0.005715)
 SVM:	mean=0.722868 (std=0.006261)
 
@@ -254,50 +254,14 @@ SVM:	mean=0.722868 (std=0.006261)
 ScaledLR:	mean=0.786637 (std=0.006497)
 ScaledLDA:	mean=0.787583 (std=0.007485)
 ScaledKNN:	mean=0.804194 (std=0.006794)
-ScaledCART:	mean=0.799603 (std=0.005147)
+ScaledCART:	mean=0.800226 (std=0.004552)
 ScaledNB:	mean=0.754683 (std=0.006653)
 ScaledSVM:	mean=0.832964 (std=0.006196)
 
  === Evaluate Ensemble Algorithms ===
 AB:	mean=0.803986 (std=0.007514)
 GBM:	mean=0.828557 (std=0.006797)
-RF:	mean=0.846253 (std=0.003397)
-ET:	mean=0.839308 (std=0.004857)
+RF:	mean=0.843231 (std=0.004779)
+ET:	mean=0.839147 (std=0.003706)
 
 <<< THEN END - Running Exploratory Data Analysis #3 >>>
-####################################################################
-############### Running Exploratory Data Analysis #4 ###############
-####################################################################
-
-loading ../input/ifes_2009_to_2014.csv ...
-
-=== Split-out train/validation datasets ===
-tune LR
-Best: 0.788021 using {'C': 0.001}
-/Users/fabriciomatos/anaconda/lib/python2.7/site-packages/sklearn/model_selection/_search.py:662: DeprecationWarning: The grid_scores_ attribute was deprecated in version 0.18 in favor of the more elaborate cv_results_ attribute. The grid_scores_ attribute will not be available from 0.20
-  DeprecationWarning)
-0.788021 (0.006546) with: {'C': 0.001}
-0.786891 (0.006439) with: {'C': 0.01}
-0.786660 (0.006522) with: {'C': 10}
-0.786660 (0.006522) with: {'C': 100}
-0.786660 (0.006522) with: {'C': 1000}
-0.786660 (0.006427) with: {'C': 0.1}
-0.786637 (0.006497) with: {'C': 1}
-tune LDA
-Best: 0.787583 using {'tol': 1e-05, 'solver': 'svd'}
-/Users/fabriciomatos/anaconda/lib/python2.7/site-packages/sklearn/model_selection/_search.py:662: DeprecationWarning: The grid_scores_ attribute was deprecated in version 0.18 in favor of the more elaborate cv_results_ attribute. The grid_scores_ attribute will not be available from 0.20
-  DeprecationWarning)
-0.787583 (0.007485) with: {'tol': 1e-05, 'solver': 'svd'}
-0.787583 (0.007485) with: {'tol': 0.0001, 'solver': 'svd'}
-0.787583 (0.007485) with: {'tol': 0.001, 'solver': 'svd'}
-0.787583 (0.007485) with: {'tol': 0.01, 'solver': 'svd'}
-0.787560 (0.007502) with: {'tol': 1e-05, 'solver': 'lsqr'}
-0.787560 (0.007502) with: {'tol': 0.0001, 'solver': 'lsqr'}
-0.787560 (0.007502) with: {'tol': 0.001, 'solver': 'lsqr'}
-0.787560 (0.007502) with: {'tol': 0.01, 'solver': 'lsqr'}
-0.777939 (0.006236) with: {'tol': 1e-05, 'solver': 'eigen'}
-0.777939 (0.006236) with: {'tol': 0.0001, 'solver': 'eigen'}
-0.777939 (0.006236) with: {'tol': 0.001, 'solver': 'eigen'}
-0.777939 (0.006236) with: {'tol': 0.01, 'solver': 'eigen'}
-tune SVM
-

@@ -3,7 +3,7 @@
 # All rights reserved.
 
 ''''
-Delete columns not available at the end of first semester and run the same analysis of eda1.
+Try reduction feature techniques like PCA 
 '''
 
 # Load libraries
@@ -14,11 +14,44 @@ import numpy
 import matplotlib.pyplot as plt
 from pandas.tools.plotting import scatter_matrix
 from pandas import DataFrame
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+from sklearn import cross_validation
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.pipeline import Pipeline
+from sklearn.grid_search import GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.datasets import load_digits
+from sklearn.model_selection import GridSearchCV
+from sklearn.decomposition import PCA, NMF
+from sklearn.feature_selection import SelectKBest, chi2
 
 import lib.eda1 as eda1
 
+
+#constants
+N_DIGITS = 3
+NUM_FOLDS = 10
+RAND_SEED = 7
+SCORING = 'accuracy'
+VALIDATION_SIZE = 0.20
+N_JOBS = 6
+
 #global variables
 start = time.clock()
+imageidx = 1
+createImages = True
 
 def duration():
     global start
@@ -28,45 +61,99 @@ def duration():
     
     start = time.clock()
 
-
-#drop not interesting columns and fill NaN values
-def dataCleansing(dataframe):
-    #axis: 0 for rows and 1 for columns
-    dataframe.drop('hash_cod_matricula', axis=1, inplace=True)
-    dataframe.drop('cep', axis=1, inplace=True)
-
-    #drop attributes impacted for the fact that the student isn't sduding anymore.
-    #we want attributes that would be the same for students starting the second semester
-    dataframe.drop('periodo_atual', axis=1, inplace=True)
-    dataframe.drop('coeficiente_rendimento', axis=1, inplace=True)
-    dataframe.drop('coeficiente_progressao', axis=1, inplace=True)
-    dataframe.drop('reprovacoes_por_nota', axis=1, inplace=True)
-    dataframe.drop('reprovacoes_por_falta', axis=1, inplace=True)
-    dataframe.drop('aprovacoes', axis=1, inplace=True)
-    dataframe.drop('aproveitamentos', axis=1, inplace=True)
-    dataframe.drop('sit_enade', axis=1, inplace=True)
-   
-    #replace NaN with 0
-    dataframe.fillna(value=0, inplace=True)
+        
+# Standardize the dataset, reduce features using PCA and reevaluate the same algorithms
+def standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath):
+    global imageidx
+    print '\n === Standardize the dataset and reevaluate algorithms ==='
     
-    return dataframe
+    
+    #('PCA', PCA()),
+    
+    pipelines = []
+    pipelines.append(('ScaledLR', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('LR', LogisticRegression())])))
+    pipelines.append(('ScaledLDA', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('LDA', LinearDiscriminantAnalysis())])))
+    pipelines.append(('ScaledKNN', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('KNN', KNeighborsClassifier())])))
+    pipelines.append(('ScaledCART', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('CART', DecisionTreeClassifier())])))
+    pipelines.append(('ScaledNB', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('NB', GaussianNB())])))
+    pipelines.append(('ScaledSVM', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('SVM', SVC())])))
+    
+    results = []
+    names = []
+    
+    for name, model in pipelines:
+        kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
+        results.append(cv_results)
+        names.append(name)
+        msg = "%s:\tmean=%f (std=%f)" % (name, cv_results.mean(), cv_results.std())
+        print(msg)
+        
+    # Compare Algorithms
+    if (createImages):
+        fig = plt.figure()
+        fig.suptitle('Algorithm Comparison - Pipeline(PCA->MinMax->Standard)')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Compare-algorithms-standardized-dataset.png')
+        imageidx += 1
+
+    plt.close('all')
+    
+    
+# Evaluate Ensemble Algorithms
+def evaluateEnsembleAlgorith(X_train, Y_train, outputPath):
+    global imageidx
+    print '\n === Evaluate Ensemble Algorithms ==='
+
+    ensembles = []
+    ensembles.append(('AB', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('AB', AdaBoostClassifier())])))
+    ensembles.append(('GBM', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('GBM', GradientBoostingClassifier())])))
+    ensembles.append(('RF', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('RF', RandomForestClassifier())])))
+    ensembles.append(('ET', Pipeline([('PCA', PCA()),('MinMaxScaler', MinMaxScaler(feature_range=(0, 1))),('Scaler', StandardScaler()),('ET', ExtraTreesClassifier())])))
+    
+    results = []
+    names = []
+    
+    for name, model in ensembles:
+        kfold = cross_validation.KFold(n=len(X_train), n_folds=NUM_FOLDS, random_state=RAND_SEED)
+        cv_results = cross_validation.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=SCORING)
+        results.append(cv_results)
+        names.append(name)
+        msg = "%s:\tmean=%f (std=%f)" % (name, cv_results.mean(), cv_results.std())
+        print(msg)
+
+    # Compare Algorithms
+    if (createImages):
+        fig = plt.figure()
+        fig.suptitle('Ensemble Algorithm Comparison - Pipeline(PCA->MinMax->Standard)')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        #plt.show()
+        plt.savefig(outputPath + str(imageidx).zfill(N_DIGITS) + '-Ensemble-Algorithm-Comparison.png')
+        imageidx += 1
+    
+    plt.close('all')
+
     
 def set_createImages(value):
     global createImages
     createImages = value
     
-    
 # ===================================================
 # ================== main function ==================
 # ===================================================
-def run(inputFilePath, outputPath, createImagesFlag):
-    global start
-    
+def run(inputFilePath, outputPath, createImagesFlag, dropColumns):
+    global start, imageidx
+
     print '####################################################################'
-    print '############### Running Exploratory Data Analysis #2 ###############'
+    print '############### Running Exploratory Data Analysis #3 ###############'
     print '####################################################################'
     print ''
-
+    
     set_createImages(createImagesFlag)
     start = time.clock()
     eda1.reset_imageidx()
@@ -78,31 +165,22 @@ def run(inputFilePath, outputPath, createImagesFlag):
     # Load dataset
     dataframe = eda1.loadDataframe(inputFilePath)
     
-    dataframe = dataCleansing(dataframe)
-    dataframe.to_csv(inputFilePath[:-4] + '-cleaned.csv')
-    
-    
-    # Understand the data
-    #eda1.descriptiveStatistics(dataframe, outputPath)
-    eda1.dataVisualizations(dataframe, outputPath)
+    # drop out 'not fair' features
+    dataframe = eda1.dataCleansing(dataframe, dropColumns)
         
     #Split-out train/validation dataset
-    X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)
-    
-    #Compare different feature reduction techniques
-    eda1.compareFeatureReductionTechniques(X_train, Y_train, outputPath)
-    
-    # Select the most effective features
-    eda1.featureSelection(dataframe.dtypes.keys(), X_train, Y_train)    
+    X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
     
     # Evaluate Algorithms
     eda1.evaluteAlgorithms(X_train, Y_train, outputPath)
     
-    # Standardize the dataset and reevaluate the same algorithms
-    eda1.standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath)
+    imageidx = eda1.get_imageidx()
     
-    # Evaluate Ensemble Algorithms
-    eda1.evaluateEnsembleAlgorith(X_train, Y_train, outputPath)
+    # Standardize the dataset, reduce features using PCA and reevaluate the same algorithms
+    standardizeDataAndReevaluateAlgorithms(X_train, Y_train, outputPath)
     
-    print '\n<<< THEN END - Running Exploratory Data Analysis #2 >>>'
+    # Standardize the dataset, reduce features using PCA and evaluate Ensemble Algorithms
+    evaluateEnsembleAlgorith(X_train, Y_train, outputPath)
+    
+    print '\n<<< THEN END - Running Exploratory Data Analysis #3 >>>'
     

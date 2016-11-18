@@ -33,7 +33,7 @@ def run(inputname, dropColumns):
     #eda3.run(inputFilePath, 'output/' + inputname + '/eda3/', createImagesFlag, dropColumns)
 
     #tune the 3 best aglorithms (everyone from 2009 to 2014)
-    #eda4.run(inputFilePath, 'output/' + inputname + '/eda4/', createImagesFlag, dropColumns)
+    eda4.run(inputFilePath, 'output/' + inputname + '/eda4/', createImagesFlag, dropColumns)
     
 
 #Bacharelado em Sistemas de Informacao - Campus Serra

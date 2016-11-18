@@ -192,7 +192,9 @@ def drawTunedAlgorithmsComparison(results, names, outputPath):
 def set_createImages(value):
     global createImages
     createImages = value
-    
+ 
+
+
         
 # ===================================================
 # ================== main function ==================

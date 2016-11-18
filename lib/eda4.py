@@ -88,13 +88,14 @@ def tuneRF(X_train, Y_train, outputPath):
 
     #TODO: check it out if 'mean_test_score' is really what I want here
     cv_results = grid_result.cv_results_['mean_test_score']
-    
     results.append(cv_results)
-    names.append('RF')
-    params.append('%s' % grid_result.cv_results_['params'][best_idx])
-        
-    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
+    
+    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)
+    first = True
     for param, mean_score, scores in grid_scores:
+        if first:
+            bestResults.append({'name':'RF', 'mean':scores.mean(), 'std':scores.std(), 'params':param})
+            first = False
         print("%f (%f) with: %r" % (scores.mean(), scores.std(), param))
 
 # ExtraTreesClassifier
@@ -127,14 +128,15 @@ def tuneET(X_train, Y_train, outputPath):
     best_idx = grid_result.best_index_
 
     #TODO: check it out if 'mean_test_score' is really what a want here
-    cv_results = grid_result.cv_results_['mean_test_score'] 
-    
+    cv_results = grid_result.cv_results_['mean_test_score']
     results.append(cv_results)
-    names.append('LDA')
-    params.append('%s' % grid_result.cv_results_['params'][best_idx])
-        
-    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
+    
+    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)
+    first = True
     for param, mean_score, scores in grid_scores:
+        if first:
+            bestResults.append({'name':'ET', 'mean':scores.mean(), 'std':scores.std(), 'params':param})
+            first = False
         print("%f (%f) with: %r" % (scores.mean(), scores.std(), param))
     
     
@@ -164,13 +166,14 @@ def tuneSVM(X_train, Y_train, outputPath):
 
     #TODO: check it out if 'mean_test_score' is really what a want here
     cv_results = grid_result.cv_results_['mean_test_score']
-    
     results.append(cv_results)
-    names.append('SVM')
-    params.append('%s' % grid_result.cv_results_['params'][best_idx])
-        
-    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)    
+    
+    grid_scores = sorted(grid_result.grid_scores_, key=lambda x: x[2].mean(), reverse=True)
+    first = True
     for param, mean_score, scores in grid_scores:
+        if first:
+            bestResults.append({'name':'SVM', 'mean':scores.mean(), 'std':scores.std(), 'params':param})
+            first = False
         print("%f (%f) with: %r" % (scores.mean(), scores.std(), param))
         
         
@@ -178,10 +181,10 @@ def drawTunedAlgorithmsComparison(results, names, outputPath):
     global imageidx
     print '\n === Tuned Algorithms Comparison ===\n'
 
-    algorithms = numpy.dstack((names,params, results))[0]    
-    for name, param, result in algorithms:
-        print "%f (%f) - %s => Best Params: %s" % (result.mean(), result.std(), name, param) 
-    
+    #print bestResults
+    for x in bestResults:
+        print x
+            
     # Compare Algorithms
     if (createImages):
         fig = plt.figure()

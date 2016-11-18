@@ -5,10 +5,14 @@
 loading ../input/ifes_2009_to_2014.csv ...
 
 === Summarize Data ===
-(54180, 19)
+(54180, 23)
 cod_instituicao                      int64
 cod_curso                            int64
 ano_letivo_ini                       int64
+periodo_letivo_ini                   int64
+cor                                float64
+distancia_conclusao_2grau            int64
+cod_escola_2_grau                  float64
 renda_per_capita                     int64
 grau_instrucao                     float64
 estado_civil                       float64
@@ -26,122 +30,156 @@ aprovacoes_periodo_1                 int64
 aproveitamentos_periodo_1            int64
 evadiu                               int64
 dtype: object
-    cod_instituicao  cod_curso  ano_letivo_ini  renda_per_capita  grau_instrucao  estado_civil  \
-0                 1          5            2009                 5             0.2           0.4   
-1                 1          5            2009                 6             0.0           0.4   
-2                 1          5            2009                 4             0.2           0.4   
-3                 1          5            2009                 5             0.2           0.4   
-4                 1          5            2009                 0             0.2           0.4   
-5                 1          5            2009                 3             0.2           0.4   
-6                 1          5            2009                 4             0.2           0.4   
-7                 1          5            2009                 3             0.2           0.4   
-8                 1          5            2009                 7             0.2           0.4   
-9                 1          5            2009                 1             0.2           0.4   
-10                1          5            2009                 3             0.2           0.4   
-11                1          5            2009                 3             0.2           0.4   
-12                1          5            2009                 0             0.2           0.4   
-13                1          5            2009                 5             0.2           0.4   
-14                1          5            2009                 4             0.2           0.4   
-15                1          5            2009                 5             0.3           0.5   
-16                1          5            2009                 2             0.2           0.4   
-17                1          5            2009                 4             0.2           0.4   
-18                1          5            2009                 5             0.7           0.4   
-19                1          5            2009                 5             0.2           0.4   
+    cod_instituicao  cod_curso  ano_letivo_ini  periodo_letivo_ini   cor  \
+0                 1          5            2009                   1  0.25   
+1                 1          5            2009                   1  0.25   
+2                 1          5            2009                   1  0.25   
+3                 1          5            2009                   1  0.85   
+4                 1          5            2009                   1  0.25   
+5                 1          5            2009                   1  0.85   
+6                 1          5            2009                   1  0.85   
+7                 1          5            2009                   1  0.70   
+8                 1          5            2009                   1  0.10   
+9                 1          5            2009                   1  0.25   
+10                1          5            2009                   1  0.25   
+11                1          5            2009                   1  0.25   
+12                1          5            2009                   2  0.70   
+13                1          5            2009                   1  0.85   
+14                1          5            2009                   1  0.85   
+15                1          5            2009                   1  0.25   
+16                1          5            2009                   1  0.25   
+17                1          5            2009                   1  0.85   
+18                1          5            2009                   1  0.85   
+19                1          5            2009                   1  0.25   
 
-    cod_cidade  possui_filhos  sexo  ano_nascimento  cod_naturalidade  ano_reservista  \
-0        878.0              0     1            1981               0.0          2002.0   
-1        878.0              0     0            1990            5664.0             0.0   
-2        877.0              0     0            1991             878.0             0.0   
-3       7738.0              0     0            1991             877.0             0.0   
-4        878.0              0     0            1990            1960.0             0.0   
-5        878.0              0     0            1991             878.0             0.0   
-6        877.0              0     0            1990             877.0             0.0   
-7        870.0              0     1            1988             878.0          2006.0   
-8        878.0              0     0            1991             878.0             0.0   
-9        877.0              0     1            1990             878.0          2008.0   
-10       877.0              0     1            1991             877.0          2009.0   
-11       878.0              0     0            1988             878.0             0.0   
-12       878.0              0     1            1992             808.0          2010.0   
-13      7738.0              0     0            1988             878.0             0.0   
-14       878.0              0     1            1989             878.0          2008.0   
-15       810.0              0     0            1991             841.0             0.0   
-16       877.0              0     0            1988             878.0             0.0   
-17      7738.0              0     1            1979            6253.0          1998.0   
-18       878.0              0     1            1987             878.0          2008.0   
-19       870.0              0     1            1990             878.0          2008.0   
+    distancia_conclusao_2grau  cod_escola_2_grau  renda_per_capita  grau_instrucao  estado_civil  \
+0                           6                0.0                 5             0.2           0.4   
+1                           0                0.0                 6             0.0           0.4   
+2                           1             2192.0                 4             0.2           0.4   
+3                           1             5407.0                 5             0.2           0.4   
+4                           1             3411.0                 0             0.2           0.4   
+5                           2                0.0                 3             0.2           0.4   
+6                           2              183.0                 4             0.2           0.4   
+7                           2                0.0                 3             0.2           0.4   
+8                           1               92.0                 7             0.2           0.4   
+9                           1              463.0                 1             0.2           0.4   
+10                          1                0.0                 3             0.2           0.4   
+11                          3              264.0                 3             0.2           0.4   
+12                          1              173.0                 0             0.2           0.4   
+13                          3            10648.0                 5             0.2           0.4   
+14                          2              471.0                 4             0.2           0.4   
+15                          1             1355.0                 5             0.3           0.5   
+16                          3              925.0                 2             0.2           0.4   
+17                          9                0.0                 4             0.2           0.4   
+18                          2             2467.0                 5             0.7           0.4   
+19                          2              463.0                 5             0.2           0.4   
 
-    forma_ingresso  turno  reprovacoes_por_nota_periodo_1  reprovacoes_por_falta_periodo_1  \
-0              0.3   0.50                               2                                5   
-1              0.3   0.50                               2                                6   
-2              0.3   0.75                               0                                0   
-3              0.3   0.75                               1                                0   
-4              0.3   0.75                               3                                0   
-5              0.3   0.50                               0                                0   
-6              0.3   0.75                               0                                0   
-7              0.3   0.50                               0                                0   
-8              0.3   0.75                               0                                1   
-9              0.3   0.50                               0                                0   
-10             0.3   0.75                               1                                0   
-11             0.3   0.75                               0                                0   
-12             0.9   0.75                               0                                0   
-13             0.3   0.75                               0                                0   
-14             0.3   0.50                               0                                0   
-15             0.3   0.75                               0                                0   
-16             0.3   0.75                               0                                0   
-17             0.3   0.50                               2                                6   
-18             0.3   0.75                               3                                0   
-19             0.3   0.75                               1                                0   
+     ...    ano_nascimento  cod_naturalidade  ano_reservista  forma_ingresso  turno  \
+0    ...              1981               0.0          2002.0             0.3   0.50   
+1    ...              1990            5664.0             0.0             0.3   0.50   
+2    ...              1991             878.0             0.0             0.3   0.75   
+3    ...              1991             877.0             0.0             0.3   0.75   
+4    ...              1990            1960.0             0.0             0.3   0.75   
+5    ...              1991             878.0             0.0             0.3   0.50   
+6    ...              1990             877.0             0.0             0.3   0.75   
+7    ...              1988             878.0          2006.0             0.3   0.50   
+8    ...              1991             878.0             0.0             0.3   0.75   
+9    ...              1990             878.0          2008.0             0.3   0.50   
+10   ...              1991             877.0          2009.0             0.3   0.75   
+11   ...              1988             878.0             0.0             0.3   0.75   
+12   ...              1992             808.0          2010.0             0.9   0.75   
+13   ...              1988             878.0             0.0             0.3   0.75   
+14   ...              1989             878.0          2008.0             0.3   0.50   
+15   ...              1991             841.0             0.0             0.3   0.75   
+16   ...              1988             878.0             0.0             0.3   0.75   
+17   ...              1979            6253.0          1998.0             0.3   0.50   
+18   ...              1987             878.0          2008.0             0.3   0.75   
+19   ...              1990             878.0          2008.0             0.3   0.75   
 
-    aprovacoes_periodo_1  aproveitamentos_periodo_1  evadiu  
-0                      0                          0       1  
-1                      0                          0       1  
-2                      8                          0       0  
-3                      7                          0       0  
-4                      5                          0       0  
-5                      0                          0       1  
-6                      8                          0       0  
-7                      0                          0       1  
-8                      7                          0       0  
-9                      0                          0       1  
-10                     7                          0       0  
-11                     8                          0       0  
-12                     0                          0       0  
-13                     8                          0       0  
-14                     0                          0       1  
-15                     8                          0       0  
-16                     8                          0       0  
-17                     0                          0       1  
-18                     5                          0       0  
-19                     7                          0       0  
-       cod_instituicao  cod_curso  ano_letivo_ini  renda_per_capita  grau_instrucao  estado_civil  \
-count        54180.000  54180.000       54180.000         54180.000       54180.000     54180.000   
-mean            18.177   2033.591        2011.922             1.504           0.177         0.325   
-std             21.695   1176.803           1.697             2.521           0.147         0.177   
-min              1.000      5.000        2009.000             0.000           0.000         0.000   
-25%              2.000   1255.000        2010.000             0.000           0.100         0.200   
-50%              5.000   1927.000        2012.000             0.000           0.200         0.400   
-75%             40.000   2770.000        2013.000             2.000           0.200         0.400   
-max            113.000   6559.000        2014.000            10.000           0.700         0.700   
+    reprovacoes_por_nota_periodo_1  reprovacoes_por_falta_periodo_1  aprovacoes_periodo_1  \
+0                                2                                5                     0   
+1                                2                                6                     0   
+2                                0                                0                     8   
+3                                1                                0                     7   
+4                                3                                0                     5   
+5                                0                                0                     0   
+6                                0                                0                     8   
+7                                0                                0                     0   
+8                                0                                1                     7   
+9                                0                                0                     0   
+10                               1                                0                     7   
+11                               0                                0                     8   
+12                               0                                0                     0   
+13                               0                                0                     8   
+14                               0                                0                     0   
+15                               0                                0                     8   
+16                               0                                0                     8   
+17                               2                                6                     0   
+18                               3                                0                     5   
+19                               1                                0                     7   
 
-       cod_cidade  possui_filhos       sexo  ano_nascimento  cod_naturalidade  ano_reservista  \
-count   54180.000      54180.000  54180.000       54180.000         54180.000       54180.000   
-mean     2136.812          0.069      0.504        1987.258          2167.530         577.944   
-std      2452.270          0.253      0.500          10.924          2357.703         998.890   
-min         0.000          0.000      0.000        1887.000             0.000           0.000   
-25%       820.000          0.000      0.000        1982.000           820.000           0.000   
-50%       870.000          0.000      1.000        1991.000           877.000           0.000   
-75%       878.000          0.000      1.000        1995.000          3565.000        1995.000   
-max     11927.000          1.000      1.000        2971.000         12040.000       20190.000   
+    aproveitamentos_periodo_1  evadiu  
+0                           0       1  
+1                           0       1  
+2                           0       0  
+3                           0       0  
+4                           0       0  
+5                           0       1  
+6                           0       0  
+7                           0       1  
+8                           0       0  
+9                           0       1  
+10                          0       0  
+11                          0       0  
+12                          0       0  
+13                          0       0  
+14                          0       1  
+15                          0       0  
+16                          0       0  
+17                          0       1  
+18                          0       0  
+19                          0       0  
 
-       forma_ingresso     turno  reprovacoes_por_nota_periodo_1  reprovacoes_por_falta_periodo_1  \
-count       54180.000  54180.00                       54180.000                        54180.000   
-mean            0.252      0.19                           0.788                            0.561   
-std             0.147      0.28                           1.713                            1.693   
-min             0.000      0.00                           0.000                            0.000   
-25%             0.300      0.00                           0.000                            0.000   
-50%             0.300      0.00                           0.000                            0.000   
-75%             0.300      0.50                           1.000                            0.000   
-max             0.900      0.75                          22.000                           22.000   
+[20 rows x 23 columns]
+       cod_instituicao  cod_curso  ano_letivo_ini  periodo_letivo_ini        cor  \
+count        54180.000  54180.000       54180.000           54180.000  54180.000   
+mean            18.177   2033.591        2011.922               1.355      0.489   
+std             21.695   1176.803           1.697               0.478      0.312   
+min              1.000      5.000        2009.000               1.000      0.000   
+25%              2.000   1255.000        2010.000               1.000      0.250   
+50%              5.000   1927.000        2012.000               1.000      0.250   
+75%             40.000   2770.000        2013.000               2.000      0.850   
+max            113.000   6559.000        2014.000               2.000      0.850   
+
+       distancia_conclusao_2grau  cod_escola_2_grau  renda_per_capita  grau_instrucao  \
+count                  54180.000          54180.000         54180.000       54180.000   
+mean                       2.950           3755.274             1.504           0.177   
+std                        5.628           7116.328             2.521           0.147   
+min                        0.000              0.000             0.000           0.000   
+25%                        0.000              0.000             0.000           0.100   
+50%                        0.000             71.000             0.000           0.200   
+75%                        3.000           4102.000             2.000           0.200   
+max                       58.000          37807.000            10.000           0.700   
+
+       estado_civil    ...      ano_nascimento  cod_naturalidade  ano_reservista  forma_ingresso  \
+count     54180.000    ...           54180.000         54180.000       54180.000       54180.000   
+mean          0.325    ...            1987.258          2167.530         577.944           0.252   
+std           0.177    ...              10.924          2357.703         998.890           0.147   
+min           0.000    ...            1887.000             0.000           0.000           0.000   
+25%           0.200    ...            1982.000           820.000           0.000           0.300   
+50%           0.400    ...            1991.000           877.000           0.000           0.300   
+75%           0.400    ...            1995.000          3565.000        1995.000           0.300   
+max           0.700    ...            2971.000         12040.000       20190.000           0.900   
+
+          turno  reprovacoes_por_nota_periodo_1  reprovacoes_por_falta_periodo_1  \
+count  54180.00                       54180.000                        54180.000   
+mean       0.19                           0.788                            0.561   
+std        0.28                           1.713                            1.693   
+min        0.00                           0.000                            0.000   
+25%        0.00                           0.000                            0.000   
+50%        0.00                           0.000                            0.000   
+75%        0.50                           1.000                            0.000   
+max        0.75                          22.000                           22.000   
 
        aprovacoes_periodo_1  aproveitamentos_periodo_1     evadiu  
 count             54180.000                  54180.000  54180.000  
@@ -152,6 +190,8 @@ min                   0.000                      0.000      0.000
 50%                   5.000                      0.000      0.000  
 75%                   8.000                      0.000      1.000  
 max                  22.000                     14.000      1.000  
+
+[8 rows x 23 columns]
 evadiu
 0    34885
 1    19295
@@ -172,66 +212,74 @@ box and whisker plots of standardized data
 === Feature Selection ===
 
 Features by Relevance (using 'ExtraTreesClassifier'):
-0.227542 : aprovacoes_periodo_1
-0.083616 : cod_curso
-0.081541 : reprovacoes_por_falta_periodo_1
-0.075378 : cod_instituicao
-0.067568 : ano_nascimento
-0.058562 : reprovacoes_por_nota_periodo_1
-0.055321 : cod_naturalidade
-0.051495 : cod_cidade
-0.046392 : ano_letivo_ini
-0.046058 : forma_ingresso
-0.041906 : grau_instrucao
-0.041034 : renda_per_capita
-0.038113 : turno
-0.029254 : estado_civil
-0.026925 : ano_reservista
-0.011752 : sexo
-0.010484 : aproveitamentos_periodo_1
-0.007060 : possui_filhos
+0.225255 : aprovacoes_periodo_1
+0.067632 : reprovacoes_por_falta_periodo_1
+0.066947 : cod_curso
+0.063020 : cod_instituicao
+0.057122 : reprovacoes_por_nota_periodo_1
+0.051584 : ano_nascimento
+0.045169 : forma_ingresso
+0.044267 : cod_naturalidade
+0.043185 : ano_letivo_ini
+0.042454 : cod_cidade
+0.037089 : turno
+0.036139 : cod_escola_2_grau
+0.034472 : distancia_conclusao_2grau
+0.034146 : renda_per_capita
+0.033194 : grau_instrucao
+0.030972 : cor
+0.024170 : estado_civil
+0.019879 : ano_reservista
+0.017748 : periodo_letivo_ini
+0.010468 : sexo
+0.008728 : aproveitamentos_periodo_1
+0.006360 : possui_filhos
 
 Features by Relevance (using 'RandomForestClassifier'):
-0.220287 : aprovacoes_periodo_1
-0.099841 : cod_curso
-0.079682 : ano_nascimento
-0.075319 : cod_instituicao
-0.072523 : reprovacoes_por_falta_periodo_1
-0.062950 : cod_naturalidade
-0.060198 : cod_cidade
-0.055498 : reprovacoes_por_nota_periodo_1
-0.051154 : forma_ingresso
-0.046042 : ano_letivo_ini
-0.036040 : renda_per_capita
-0.033860 : grau_instrucao
-0.029505 : turno
-0.028661 : ano_reservista
-0.023014 : estado_civil
-0.011444 : sexo
-0.009683 : aproveitamentos_periodo_1
-0.004298 : possui_filhos
+0.215579 : aprovacoes_periodo_1
+0.090776 : cod_curso
+0.074807 : cod_instituicao
+0.059500 : ano_nascimento
+0.056412 : reprovacoes_por_falta_periodo_1
+0.053479 : cod_escola_2_grau
+0.051207 : cod_naturalidade
+0.050325 : cod_cidade
+0.049344 : reprovacoes_por_nota_periodo_1
+0.043279 : forma_ingresso
+0.039682 : ano_letivo_ini
+0.030974 : distancia_conclusao_2grau
+0.029346 : renda_per_capita
+0.028117 : grau_instrucao
+0.025474 : turno
+0.024892 : cor
+0.022312 : ano_reservista
+0.020117 : estado_civil
+0.013063 : periodo_letivo_ini
+0.010019 : sexo
+0.007885 : aproveitamentos_periodo_1
+0.003411 : possui_filhos
 
 === Evaluate algorithms ===
-LR:	mean=0.791320 (std=0.006605)
-LDA:	mean=0.787583 (std=0.007485)
-KNN:	mean=0.738280 (std=0.004709)
-CART:	mean=0.820828 (std=0.004649)
-NB:	mean=0.750923 (std=0.005715)
-SVM:	mean=0.722868 (std=0.006261)
+LR:	mean=0.791228 (std=0.005226)
+LDA:	mean=0.787190 (std=0.007516)
+KNN:	mean=0.690430 (std=0.007617)
+CART:	mean=0.815499 (std=0.004456)
+NB:	mean=0.743471 (std=0.005440)
+SVM:	mean=0.678410 (std=0.007877)
 
  === Standardize the dataset and reevaluate algorithms ===
-ScaledLR:	mean=0.786637 (std=0.006488)
-ScaledLDA:	mean=0.787583 (std=0.007485)
-ScaledKNN:	mean=0.805671 (std=0.007357)
-ScaledCART:	mean=0.820344 (std=0.005952)
-ScaledNB:	mean=0.751523 (std=0.006290)
-ScaledSVM:	mean=0.832179 (std=0.005826)
+ScaledLR:	mean=0.787490 (std=0.006795)
+ScaledLDA:	mean=0.787190 (std=0.007516)
+ScaledKNN:	mean=0.793028 (std=0.007256)
+ScaledCART:	mean=0.816330 (std=0.004700)
+ScaledNB:	mean=0.745939 (std=0.007275)
+ScaledSVM:	mean=0.835110 (std=0.005540)
 
  === Evaluate Ensemble Algorithms ===
-AB:	mean=0.808255 (std=0.007756)
-GBM:	mean=0.844269 (std=0.005394)
-RF:	mean=0.858965 (std=0.004577)
-ET:	mean=0.852644 (std=0.003940)
+AB:	mean=0.810354 (std=0.006531)
+GBM:	mean=0.841500 (std=0.005675)
+RF:	mean=0.859773 (std=0.004383)
+ET:	mean=0.851167 (std=0.004622)
 
 <<< THEN END - Running Exploratory Data Analysis #1 >>>
 ####################################################################
@@ -243,25 +291,730 @@ loading ../input/ifes_2009_to_2014.csv ...
 === Split-out train/validation datasets ===
 
 === Evaluate algorithms ===
-LR:	mean=0.790974 (std=0.006196)
-LDA:	mean=0.787583 (std=0.007485)
-KNN:	mean=0.738280 (std=0.004709)
-CART:	mean=0.821151 (std=0.004369)
-NB:	mean=0.750923 (std=0.005715)
-SVM:	mean=0.722868 (std=0.006261)
+LR:	mean=0.791597 (std=0.006071)
+LDA:	mean=0.787190 (std=0.007516)
+KNN:	mean=0.690430 (std=0.007617)
+CART:	mean=0.817206 (std=0.005168)
+NB:	mean=0.743471 (std=0.005440)
+SVM:	mean=0.678410 (std=0.007877)
 
  === Standardize the dataset and reevaluate algorithms ===
-ScaledLR:	mean=0.786637 (std=0.006497)
-ScaledLDA:	mean=0.787583 (std=0.007485)
-ScaledKNN:	mean=0.804194 (std=0.006794)
-ScaledCART:	mean=0.800226 (std=0.004552)
-ScaledNB:	mean=0.754683 (std=0.006653)
-ScaledSVM:	mean=0.832964 (std=0.006196)
+ScaledLR:	mean=0.787514 (std=0.006817)
+ScaledLDA:	mean=0.787190 (std=0.007516)
+ScaledKNN:	mean=0.792174 (std=0.006886)
+ScaledCART:	mean=0.784353 (std=0.005764)
+ScaledNB:	mean=0.746031 (std=0.007695)
+ScaledSVM:	mean=0.835917 (std=0.004245)
 
  === Evaluate Ensemble Algorithms ===
-AB:	mean=0.803986 (std=0.007514)
-GBM:	mean=0.828557 (std=0.006797)
-RF:	mean=0.843231 (std=0.004779)
-ET:	mean=0.839147 (std=0.003706)
+AB:	mean=0.795750 (std=0.007880)
+GBM:	mean=0.819398 (std=0.006297)
+RF:	mean=0.836563 (std=0.005091)
+ET:	mean=0.825812 (std=0.005708)
 
 <<< THEN END - Running Exploratory Data Analysis #3 >>>
+####################################################################
+############### Running Exploratory Data Analysis #4 ###############
+####################################################################
+
+loading ../input/ifes_2009_to_2014.csv ...
+
+=== Split-out train/validation datasets ===
+tune LR (Random Forest Classifier)
+Fitting 10 folds for each of 10 candidates, totalling 100 fits
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.843332 -   2.9s
+[Parallel(n_jobs=6)]: Done   1 tasks      | elapsed:  2.6min
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.852826 -   3.1s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.842676 -   3.0s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.853979 -   3.0s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.849366 -   3.0s
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.852330 -   3.2s
+[Parallel(n_jobs=6)]: Done   6 tasks      | elapsed:  2.6min
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.847254 -   2.1s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.839871 -   2.2s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.857637 -   2.1s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.846793 -   2.2s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.858362 -   1.9s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.852364 -   2.0s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.853979 -   2.0s
+[Parallel(n_jobs=6)]: Done  13 tasks      | elapsed:  9.1min
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.846136 -   2.0s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.850946 -   2.0s
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.852561 -   1.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.844716 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.862021 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.852792 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.859746 -   2.1s
+[Parallel(n_jobs=6)]: Done  20 tasks      | elapsed: 13.3min
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.851407 -   2.1s
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.851672 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.846597 -   2.1s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.855594 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.851177 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.850254 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.860637 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.842640 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.853023 -   1.9s
+[Parallel(n_jobs=6)]: Done  29 tasks      | elapsed: 19.1min
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.849100 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.857209 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.851211 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.856517 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.847290 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.854176 -   2.0s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.853484 -   2.0s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.845870 -   2.0s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.862483 -   2.0s
+[Parallel(n_jobs=6)]: Done  38 tasks      | elapsed: 25.6min
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.855099 -   2.0s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.851177 -   2.0s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.854441 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.852826 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.847982 -   2.0s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.848408 -   2.0s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.850023 -   2.0s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.848674 -   1.9s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.852134 -   2.2s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.847520 -   2.2s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.844983 -   2.2s
+[Parallel(n_jobs=6)]: Done  49 tasks      | elapsed: 53.4min
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.853979 -   2.2s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.850715 -   2.1s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.844485 -   2.2s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.840332 -   2.0s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.856945 -   2.0s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.847485 -   2.0s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.847024 -   2.0s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.856253 -   1.9s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.842870 -   2.0s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.855791 -   1.9s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.848408 -   2.0s
+[Parallel(n_jobs=6)]: Done  60 tasks      | elapsed: 68.5min
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.858593 -   2.0s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.848674 -   2.0s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.850519 -   1.9s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.857670 -   1.9s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.852792 -   1.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.849331 -   1.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.846331 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.860637 -   1.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.850715 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.848177 -   2.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.857670 -   1.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.850750 -   1.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.847982 -   2.0s
+[Parallel(n_jobs=6)]: Done  73 tasks      | elapsed: 80.4min
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.856517 -   2.1s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.853715 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.849792 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.844485 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.859022 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.853253 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.848408 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.859516 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.847290 -   2.0s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.847751 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.857209 -   1.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.852561 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.850023 -   1.9s
+[Parallel(n_jobs=6)]: Done  86 tasks      | elapsed: 91.8min
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.845639 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.861329 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.853715 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.849100 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.857901 -   1.9s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.848904 -   1.8s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.853518 -   1.8s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.855825 -   1.8s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.846562 -   1.8s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.851407 -   1.8s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.844716 -   1.4s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.859483 -   1.3s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.856484 -   1.3s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.852792 -   1.2s
+[Parallel(n_jobs=6)]: Done 100 out of 100 | elapsed: 141.8min remaining:    0.0s
+[Parallel(n_jobs=6)]: Done 100 out of 100 | elapsed: 141.8min finished
+Best: 0.853451 using {'max_features': 'log2', 'n_estimators': 1000, 'criterion': 'gini'}
+/Users/fabriciomatos/anaconda/lib/python2.7/site-packages/sklearn/model_selection/_search.py:662: DeprecationWarning: The grid_scores_ attribute was deprecated in version 0.18 in favor of the more elaborate cv_results_ attribute. The grid_scores_ attribute will not be available from 0.20
+  DeprecationWarning)
+ERROR: couldn't tune RF
+Message: global name 'bestResults' is not defined
+tune ET (Extra Trees Classifier)
+Fitting 10 folds for each of 10 candidates, totalling 100 fits
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.842676 -  12.9s
+[Parallel(n_jobs=6)]: Done   1 tasks      | elapsed:  1.6min
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.849366 -  12.8s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.839908 -  13.0s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.846331 -  13.1s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.843137 -  13.0s
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.834102 -  13.1s
+[Parallel(n_jobs=6)]: Done   6 tasks      | elapsed:  1.6min
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=0.1, n_estimators=1000, criterion=gini .............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.849792 -   6.9s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.835487 -   6.9s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.844024 -   6.9s
+[CV]  max_features=0.1, n_estimators=1000, criterion=gini, score=0.839871 -   7.0s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.854671 -   8.8s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.848212 -   8.8s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.850750 -   2.9s
+[Parallel(n_jobs=6)]: Done  13 tasks      | elapsed:  4.4min
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.842178 -   2.9s
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.848674 -   2.9s
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.848639 -   2.9s
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=auto, n_estimators=1000, criterion=gini ............
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.842640 -   3.6s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.854638 -   3.8s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.849100 -   2.8s
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.854441 -   2.8s
+[Parallel(n_jobs=6)]: Done  20 tasks      | elapsed:  5.9min
+[CV]  max_features=auto, n_estimators=1000, criterion=gini, score=0.847254 -   2.8s
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.851903 -   2.8s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.848674 -   3.4s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.849366 -   3.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.852561 -   2.8s
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.847485 -   2.9s
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.853023 -   2.8s
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.842178 -   2.8s
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.839409 -   2.9s
+[Parallel(n_jobs=6)]: Done  29 tasks      | elapsed:  7.3min
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=sqrt, n_estimators=1000, criterion=gini, score=0.846101 -   3.7s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.853057 -   2.8s
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.851903 -   2.7s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.847059 -   2.7s
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.848212 -   2.8s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.851407 -   2.7s
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.843563 -   3.0s
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV] max_features=log2, n_estimators=1000, criterion=gini ............
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.847946 -   2.7s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.846793 -   2.7s
+[Parallel(n_jobs=6)]: Done  38 tasks      | elapsed: 10.1min
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.843563 -   2.8s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=log2, n_estimators=1000, criterion=gini, score=0.855561 -   2.7s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.856286 -   2.4s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.860900 -   2.4s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.859054 -   2.3s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.853484 -   2.3s
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.856978 -   2.3s
+[CV] max_features=None, n_estimators=1000, criterion=gini ............
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.846793 -   2.2s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.848904 -   3.3s
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.845905 -   3.2s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.858099 -   2.4s
+[Parallel(n_jobs=6)]: Done  49 tasks      | elapsed: 15.3min
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.851407 -   2.4s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.840369 -   3.3s
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.843829 -   3.2s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.846331 -   3.4s
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.834564 -   3.4s
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV] max_features=0.1, n_estimators=1000, criterion=entropy ..........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.854176 -   2.5s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=gini, score=0.856022 -   2.9s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.836179 -   5.4s
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.850715 -   5.5s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.838948 -   3.3s
+[CV]  max_features=0.1, n_estimators=1000, criterion=entropy, score=0.841255 -   3.4s
+[Parallel(n_jobs=6)]: Done  60 tasks      | elapsed: 18.0min
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.853057 -   4.9s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.851442 -   5.2s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.850519 -   3.7s
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.850288 -   3.7s
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV] max_features=auto, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.841486 -   3.0s
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.850023 -   3.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.842640 -   3.1s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.854638 -   3.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.848408 -   3.1s
+[CV]  max_features=auto, n_estimators=1000, criterion=entropy, score=0.847485 -   3.1s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.852134 -   3.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.850980 -   2.9s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.850519 -   3.0s
+[Parallel(n_jobs=6)]: Done  73 tasks      | elapsed: 21.2min
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.850288 -   3.0s
+[CV] max_features=sqrt, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.850254 -   3.1s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.842178 -   3.1s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.842409 -   3.0s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.853484 -   2.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.848408 -   3.1s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=sqrt, n_estimators=1000, criterion=entropy, score=0.847485 -   3.0s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.854441 -   3.3s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.850519 -   3.2s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.849596 -   3.0s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.849366 -   2.9s
+[CV] max_features=log2, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.850254 -   3.1s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.842178 -   3.0s
+[Parallel(n_jobs=6)]: Done  86 tasks      | elapsed: 24.4min
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.841947 -   3.2s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.854868 -   3.2s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.847716 -   3.0s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=log2, n_estimators=1000, criterion=entropy, score=0.847946 -   2.9s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.858593 -   2.5s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.856286 -   2.4s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.854902 -   2.4s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.858593 -   2.4s
+[CV] max_features=None, n_estimators=1000, criterion=entropy .........
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.846101 -   2.4s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.854638 -   2.4s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.850254 -   1.8s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.859252 -   1.8s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.855330 -   1.5s
+[CV]  max_features=None, n_estimators=1000, criterion=entropy, score=0.855561 -   1.5s
+[Parallel(n_jobs=6)]: Done 100 out of 100 | elapsed: 31.2min remaining:    0.0s
+[Parallel(n_jobs=6)]: Done 100 out of 100 | elapsed: 31.2min finished
+Best: 0.855320 using {'max_features': None, 'n_estimators': 1000, 'criterion': 'gini'}
+/Users/fabriciomatos/anaconda/lib/python2.7/site-packages/sklearn/model_selection/_search.py:662: DeprecationWarning: The grid_scores_ attribute was deprecated in version 0.18 in favor of the more elaborate cv_results_ attribute. The grid_scores_ attribute will not be available from 0.20
+  DeprecationWarning)
+ERROR: couldn't tune ET
+Message: global name 'bestResults' is not defined
+tune SVM (Support Vector Machines Classifier)
+Fitting 10 folds for each of 20 candidates, totalling 200 fits
+[CV] kernel=linear, C=0.1 ............................................
+[CV] kernel=linear, C=0.1 ............................................
+[CV] kernel=linear, C=0.1 ............................................
+[CV] kernel=linear, C=0.1 ............................................
+[CV] kernel=linear, C=0.1 ............................................
+[CV] kernel=linear, C=0.1 ............................................
+[CV] ................... kernel=linear, C=0.1, score=0.802537 -   3.1s
+[Parallel(n_jobs=6)]: Done   1 tasks      | elapsed:  1.7min
+[CV] kernel=linear, C=0.1 ............................................
+[CV] ................... kernel=linear, C=0.1, score=0.792340 -   3.1s
+[CV] kernel=linear, C=0.1 ............................................
+[CV] ................... kernel=linear, C=0.1, score=0.781546 -   3.1s
+[CV] kernel=linear, C=0.1 ............................................
+[CV] ................... kernel=linear, C=0.1, score=0.798847 -   3.1s
+[CV] kernel=linear, C=0.1 ............................................
+[CV] ................... kernel=linear, C=0.1, score=0.795386 -   3.1s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ................... kernel=linear, C=0.1, score=0.789340 -   3.1s
+[Parallel(n_jobs=6)]: Done   6 tasks      | elapsed:  1.7min
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ................... kernel=linear, C=0.1, score=0.790725 -   2.9s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ................... kernel=linear, C=0.1, score=0.795570 -   2.9s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ................... kernel=linear, C=0.1, score=0.791417 -   3.0s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ................... kernel=linear, C=0.1, score=0.782187 -   3.1s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.810150 -   3.6s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.819146 -   3.6s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.804383 -   3.4s
+[Parallel(n_jobs=6)]: Done  13 tasks      | elapsed:  5.1min
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.809227 -   3.4s
+[CV] kernel=poly, C=0.1 ..............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.807568 -   3.5s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.805261 -   3.6s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.802261 -   3.6s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.813798 -   3.7s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.803876 -   3.7s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ..................... kernel=poly, C=0.1, score=0.807107 -   3.7s
+[Parallel(n_jobs=6)]: Done  20 tasks      | elapsed:  6.7min
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.828143 -   4.8s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.825375 -   4.8s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.812918 -   4.9s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.813379 -   5.0s
+[CV] kernel=rbf, C=0.1 ...............................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.811029 -   4.7s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.823950 -   4.7s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.814259 -   4.7s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.819797 -   4.8s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.814952 -   4.8s
+[Parallel(n_jobs=6)]: Done  29 tasks      | elapsed:  9.1min
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] ...................... kernel=rbf, C=0.1, score=0.811491 -   4.8s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.737024 -   4.1s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.726182 -   4.1s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.713033 -   4.1s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.718339 -   4.2s
+[CV] kernel=sigmoid, C=0.1 ...........................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.732349 -   4.2s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.719889 -   4.2s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.714582 -   4.1s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.726581 -   4.1s
+[Parallel(n_jobs=6)]: Done  38 tasks      | elapsed: 13.1min
+[CV] kernel=linear, C=1.0 ............................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.713890 -   4.2s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] .................. kernel=sigmoid, C=0.1, score=0.706045 -   4.3s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] ................... kernel=linear, C=1.0, score=0.802768 -   3.1s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] ................... kernel=linear, C=1.0, score=0.799308 -   3.2s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] ................... kernel=linear, C=1.0, score=0.781776 -   2.8s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] ................... kernel=linear, C=1.0, score=0.795617 -   2.9s
+[CV] kernel=linear, C=1.0 ............................................
+[CV] ................... kernel=linear, C=1.0, score=0.791878 -   3.0s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ................... kernel=linear, C=1.0, score=0.789109 -   3.2s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ................... kernel=linear, C=1.0, score=0.791186 -   2.9s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ................... kernel=linear, C=1.0, score=0.796262 -   3.0s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.838293 -   2.9s
+[Parallel(n_jobs=6)]: Done  49 tasks      | elapsed: 19.3min
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.827912 -   2.9s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ................... kernel=linear, C=1.0, score=0.792109 -   2.9s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.821453 -   2.7s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ................... kernel=linear, C=1.0, score=0.782187 -   2.9s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.823991 -   2.9s
+[CV] kernel=poly, C=1.0 ..............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.821874 -   2.9s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.814490 -   2.9s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.827180 -   2.7s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.822796 -   2.7s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.829026 -   2.8s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ..................... kernel=poly, C=1.0, score=0.821643 -   2.8s
+[Parallel(n_jobs=6)]: Done  60 tasks      | elapsed: 22.7min
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.844521 -   4.1s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.840830 -   4.1s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.831834 -   4.0s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.835755 -   4.1s
+[CV] kernel=rbf, C=1.0 ...............................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.837563 -   4.1s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.829719 -   4.1s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.830411 -   4.0s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.836410 -   4.1s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.683506 -   3.1s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.680046 -   3.1s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.838486 -   4.0s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] ...................... kernel=rbf, C=1.0, score=0.834795 -   4.2s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.672895 -   3.1s
+[Parallel(n_jobs=6)]: Done  73 tasks      | elapsed: 27.1min
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.676355 -   3.1s
+[CV] kernel=sigmoid, C=1.0 ...........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.679049 -   3.1s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.663821 -   3.1s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.683203 -   3.1s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.679511 -   3.2s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.681126 -   3.1s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] .................. kernel=sigmoid, C=1.0, score=0.671897 -   3.2s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] ................. kernel=linear, C=100.0, score=0.802999 -   2.6s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] ................. kernel=linear, C=100.0, score=0.789340 -   2.7s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] ................. kernel=linear, C=100.0, score=0.781776 -   2.9s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] ................. kernel=linear, C=100.0, score=0.795386 -   2.9s
+[CV] kernel=linear, C=100.0 ..........................................
+[CV] ................. kernel=linear, C=100.0, score=0.792109 -   3.0s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................. kernel=linear, C=100.0, score=0.799077 -   3.2s
+[Parallel(n_jobs=6)]: Done  86 tasks      | elapsed: 216.4min
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................... kernel=poly, C=100.0, score=0.839216 -   2.3s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................... kernel=poly, C=100.0, score=0.827682 -   2.5s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................... kernel=poly, C=100.0, score=0.823760 -   2.3s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................... kernel=poly, C=100.0, score=0.826528 -   2.3s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................. kernel=linear, C=100.0, score=0.791647 -   2.7s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................. kernel=linear, C=100.0, score=0.781726 -   2.7s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................. kernel=linear, C=100.0, score=0.791417 -   2.8s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................. kernel=linear, C=100.0, score=0.796031 -   2.9s
+[CV] kernel=poly, C=100.0 ............................................
+[CV] ................... kernel=poly, C=100.0, score=0.828334 -   2.3s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] ................... kernel=poly, C=100.0, score=0.817951 -   2.2s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] .................... kernel=rbf, C=100.0, score=0.834833 -   3.5s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] .................... kernel=rbf, C=100.0, score=0.822145 -   3.4s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] .................... kernel=rbf, C=100.0, score=0.824683 -   3.5s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] .................... kernel=rbf, C=100.0, score=0.833218 -   3.5s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] .................... kernel=rbf, C=100.0, score=0.821643 -   3.4s
+[Parallel(n_jobs=6)]: Done 101 tasks      | elapsed: 448.0min
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] ................... kernel=poly, C=100.0, score=0.829488 -   2.1s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] ................... kernel=poly, C=100.0, score=0.824873 -   2.2s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] ................... kernel=poly, C=100.0, score=0.833641 -   2.2s
+[CV] kernel=rbf, C=100.0 .............................................
+[CV] .................... kernel=rbf, C=100.0, score=0.816797 -   3.7s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................... kernel=poly, C=100.0, score=0.828103 -   2.2s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.676355 -   2.9s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.677739 -   2.8s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.674510 -   2.8s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.674279 -   2.9s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.693586 -   2.8s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.679280 -   2.8s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.667974 -   2.8s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.677434 -   2.8s
+[CV] kernel=sigmoid, C=100.0 .........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.680665 -   2.8s
+[CV] kernel=linear, C=10000.0 ........................................
+[CV] ................ kernel=sigmoid, C=100.0, score=0.673281 -   2.8s
+[Parallel(n_jobs=6)]: Done 116 tasks      | elapsed: 462.4min
+[CV] kernel=linear, C=10000.0 ........................................
+[CV] .................... kernel=rbf, C=100.0, score=0.821643 -   3.6s
+[CV] kernel=linear, C=10000.0 ........................................
+[CV] .................... kernel=rbf, C=100.0, score=0.827873 -   3.6s
+[CV] kernel=linear, C=10000.0 ........................................
+[CV] .................... kernel=rbf, C=100.0, score=0.821874 -   3.7s
+[CV] kernel=linear, C=10000.0 ........................................
+[CV] .................... kernel=rbf, C=100.0, score=0.822104 -   3.7s
+[CV] kernel=linear, C=10000.0 ........................................

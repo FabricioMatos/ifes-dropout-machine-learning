@@ -56,10 +56,11 @@ createImages = True
 results = []
 names = []
 params = []
+bestResults = []
 
 # RandomForestClassifier
 def tuneRF(X_train, Y_train, outputPath):
-    global results, names, params
+    global results, names, params, bestResults
     
     print 'tune LR (Random Forest Classifier)'
     
@@ -100,7 +101,7 @@ def tuneRF(X_train, Y_train, outputPath):
 
 # ExtraTreesClassifier
 def tuneET(X_train, Y_train, outputPath):
-    global results, names, params
+    global results, names, params, bestResults
     
     print 'tune ET (Extra Trees Classifier)'
     
@@ -142,7 +143,7 @@ def tuneET(X_train, Y_train, outputPath):
     
 # Tune scaled SVM
 def tuneSVM(X_train, Y_train, outputPath):
-    global results, names, params
+    global results, names, params, bestResults
     
     print 'tune SVM (Support Vector Machines Classifier)'
 
@@ -150,7 +151,8 @@ def tuneSVM(X_train, Y_train, outputPath):
     scaler = pipeline.fit(X_train)
     rescaledX = scaler.transform(X_train)
     
-    c_values = [0.1, 1.0, 100.0, 10000.0, 100000.0]
+    #c_values = [0.1, 1.0, 100.0, 10000.0, 100000.0]
+    c_values = [10000.0, 100000.0]
     kernel_values = ['linear', 'poly', 'rbf', 'sigmoid']
     param_grid = dict(C=c_values, kernel=kernel_values)
     
@@ -257,4 +259,5 @@ def run(inputFilePath, outputPath, createImagesFlag, dropColumns):
     
     print '\n<<< THEN END - Running Exploratory Data Analysis #4 >>>'
     
-    
+    #RF - Best: 0.853451 using {'max_features': 'log2', 'n_estimators': 1000, 'criterion': 'gini'}
+    #ET - Best: 0.855320 using {'max_features': None, 'n_estimators': 1000, 'criterion': 'gini'}

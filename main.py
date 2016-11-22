@@ -48,13 +48,13 @@ def predict(inputname, modelname, inputHasTrainedData=False):
         
 #train(inputname='curso_1200', modelname='model_1200')
 #train(inputname='curso_2770', modelname='model_2770')
-#train(inputname='ifes_2009_to_2014', modelname='model_ifes_2009_to_2014')
+train(inputname='ifes_2009_to_2014', modelname='model_ifes_2009_to_2014')
 
 #predict(inputname='curso_1200', modelname='model_1200', inputHasTrainedData=True)
 #predict(inputname='curso_2770', modelname='model_2770', inputHasTrainedData=True)
 #predict(inputname='curso_2770', modelname='model_1200', inputHasTrainedData=False)
 #predict(inputname='curso_1200', modelname='model_2770', inputHasTrainedData=False)
-predict(inputname='ifes_2009_to_2014', modelname='model_ifes_2009_to_2014', inputHasTrainedData=True)
+#predict(inputname='ifes_2009_to_2014', modelname='model_ifes_2009_to_2014', inputHasTrainedData=True)
 #predict(inputname='curso_1200', modelname='model_ifes_2009_to_2014', inputHasTrainedData=False)
 #predict(inputname='curso_2770', modelname='model_ifes_2009_to_2014', inputHasTrainedData=False)
 

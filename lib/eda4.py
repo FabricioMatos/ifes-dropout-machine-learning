@@ -234,6 +234,7 @@ def run(inputFilePath, outputPath, createImagesFlag, dropColumns):
     #Split-out train/validation dataset
     X_train, X_validation, Y_train, Y_validation = eda1.splitoutValidationDataset(dataframe)    
 
+    '''
     # tune each algorithm
     try:
         tuneRF(X_train, Y_train, outputPath)
@@ -246,13 +247,13 @@ def run(inputFilePath, outputPath, createImagesFlag, dropColumns):
     except Exception as e:
         print "ERROR: couldn't tune ET"
         print "Message: %s" % str(e)
+    '''  
         
     try:
         tuneSVM(X_train, Y_train, outputPath)
     except Exception as e:
         print "ERROR: couldn't tune SVM"
         print "Message: %s" % str(e)
-        
     
     #print the results comparing the algorithms with the best tune for each one
     drawTunedAlgorithmsComparison(results, names, outputPath)

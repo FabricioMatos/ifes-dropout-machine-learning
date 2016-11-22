@@ -20,7 +20,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn import cross_validation
 from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.decomposition import PCA
 from sklearn.externals import joblib
 from sklearn.metrics import classification_report
@@ -51,19 +51,7 @@ def dataCleansing(dataframe):
     #axis: 0 for rows and 1 for columns
     dataframe.drop('hash_cod_matricula', axis=1, inplace=True)
     dataframe.drop('cep', axis=1, inplace=True)
-    dataframe.drop('sit_matricula', axis=1, inplace=True)
 
-    #drop attributes impacted for the fact that the student isn't sduding anymore.
-    #we want attributes that would be the same for students starting the second semester
-    dataframe.drop('periodo_atual', axis=1, inplace=True)
-    dataframe.drop('coeficiente_rendimento', axis=1, inplace=True)
-    dataframe.drop('coeficiente_progressao', axis=1, inplace=True)
-    dataframe.drop('reprovacoes_por_nota', axis=1, inplace=True)
-    dataframe.drop('reprovacoes_por_falta', axis=1, inplace=True)
-    dataframe.drop('aprovacoes', axis=1, inplace=True)
-    dataframe.drop('aproveitamentos', axis=1, inplace=True)
-    dataframe.drop('sit_enade', axis=1, inplace=True)
-   
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)
     
@@ -96,8 +84,8 @@ def trainAndSaveLRModel(X_train, Y_train, outputFileNameForModel):
     rescaledX = rescaleData(X_train)
 
     # From the EDA4 we found:
-    # Best: 0.807229 using {'C': 0.001}        
-    model = LogisticRegression(C=0.001)
+    # Best: 0.853451 using {'max_features': 'log2', 'n_estimators': 1000, 'criterion': 'gini'}    
+    model = RandomForestClassifier(max_features='log2', n_estimators=1000, criterion='gini')
     
     #train
     model.fit(rescaledX, Y_train)
@@ -109,7 +97,7 @@ def trainAndSaveLRModel(X_train, Y_train, outputFileNameForModel):
     return model
 
 
-def predictFromFile(modelFileName, inputFileName, outputFileName):
+def predictFromFile(modelFileName, inputFileName, outputFileName, inputHasTrainedData):
     # Load dataset
     dataframe = loadDataframe(inputFileName)
 
@@ -126,9 +114,19 @@ def predictFromFile(modelFileName, inputFileName, outputFileName):
     # drop out 'not fair' features and replace NaN with 0
     dataframe = dataCleansing(dataframe)
 
-    # extract the input X from dataframe (matrix with 15 dimensions)
-    # at the end, just drop the 16 column which is the 'evadiu' (dropout?) if it exists
-    X = dataframe.values[:,0:15]    
+    # extract the input X from dataframe (matrix with <ncolumns> dimensions)
+    ncolumns = dataframe.shape[1]    
+    X = dataframe.values[:,0:ncolumns-1] #.astype(float)   
+    Y = dataframe.values[:,ncolumns-1]    
+    
+    #TODO: this workaround is based in the same RAND_SEED used to split the same dataset used to trainning. Would be
+    #better to split one time, save the train/validation data in two csv files and use them.
+    if inputHasTrainedData:
+        X_train, X_validation, Y_train, Y_validation = cross_validation.train_test_split(X, Y, test_size=VALIDATION_SIZE, random_state=RAND_SEED)
+
+        X = X_validation
+        X_objectIDs = X_validation[:,0:1]    
+    
     
     # load trained model
     trainedModel = joblib.load(modelFileName)
@@ -171,12 +169,25 @@ def printModelAccuracy(Y_validation, predictions):
     print '=> http://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/'
     print(classification_report(Y_validation, predictions))
     
-def checkPredictionAccuracy(predictionsDataframe, inputFileName):
+def checkPredictionAccuracy(predictionsDataframe, inputFileName, inputHasTrainedData):
     # extract the Y_validation from CSV file (assuming it's the last column)
     dataframe = loadDataframe(inputFileName)    
-    ncolumns = dataframe.shape[1]
-    Y_validation = dataframe.values[:,ncolumns-1].astype(int) 
     
+    #ncolumns = dataframe.shape[1]
+    #Y_validation = dataframe.values[:,ncolumns-1].astype(int) 
+    
+    
+    ncolumns = dataframe.shape[1]    
+    X = dataframe.values[:,0:ncolumns-1] #.astype(float)   
+    Y = dataframe.values[:,ncolumns-1].astype(int) 
+    
+    Y_validation = Y
+    
+    #TODO: this workaround is based in the same RAND_SEED used to split the same dataset used to trainning. Would be
+    #better to split one time, save the train/validation data in two csv files and use them.
+    if inputHasTrainedData:
+        X_train, X_validation, Y_train, Y_validation = cross_validation.train_test_split(X, Y, test_size=VALIDATION_SIZE, random_state=RAND_SEED)    
+        
     # extract the predictions from predictionsDataframe (assuming it's the last column)
     pncolumns = predictionsDataframe.shape[1]
     predictions = predictionsDataframe.values[:,pncolumns-1].astype(int)

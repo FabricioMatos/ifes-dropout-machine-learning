@@ -1,0 +1,56 @@
+####################################################################
+######### TRAINING ML Model for Student Dropout Prediction #########
+####################################################################
+
+
+Training ...
+Model saved to "output/model_ifes_2009_to_2014_LR.joblib"
+
+=== Model Accuracy ===
+
+accuracy_score:
+0.868955334072
+
+confusion_matrix:
+=> By definition a confusion matrix C is such that C_{i, j} is equal to the number of observations known to be in group i but predicted to be in group j.
+[[6556  430]
+ [ 990 2860]]
+
+classification_report:
+=> http://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/
+             precision    recall  f1-score   support
+
+        0.0       0.87      0.94      0.90      6986
+        1.0       0.87      0.74      0.80      3850
+
+avg / total       0.87      0.87      0.87     10836
+
+
+###############################################
+#########  Student Dropout Prediction #########
+###############################################
+Params: inputname="ifes_2009_to_2014" modelname="model_ifes_2009_to_2014"
+
+dropout-predicion
+0    35676
+1    18504
+dtype: int64
+
+=== Model Accuracy ===
+
+accuracy_score:
+0.966205241787
+
+confusion_matrix:
+=> By definition a confusion matrix C is such that C_{i, j} is equal to the number of observations known to be in group i but predicted to be in group j.
+[[34365   520]
+ [ 1311 17984]]
+
+classification_report:
+=> http://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/
+             precision    recall  f1-score   support
+
+          0       0.96      0.99      0.97     34885
+          1       0.97      0.93      0.95     19295
+
+avg / total       0.97      0.97      0.97     54180

@@ -24,10 +24,10 @@ def run(inputname, dropColumns):
     inputFilePath = '../input/' + inputname + '.csv'    
     
     #run a first exploratory data analyses
-    eda1.run(inputFilePath, 'output/' + inputname + '/eda1/', createImagesFlag, dropColumns)
+    #eda1.run(inputFilePath, 'output/' + inputname + '/eda1/', createImagesFlag, dropColumns)
 
     #try to improve the preliminar results appling "feature selection" techniques
-    eda2.run(inputFilePath, 'output/' + inputname + '/eda2/', createImagesFlag, dropColumns)
+    #eda2.run(inputFilePath, 'output/' + inputname + '/eda2/', createImagesFlag, dropColumns)
     
     #tune the 3 best aglorithms (courses 1200 and 2770)
     #eda3.run(inputFilePath, 'output/' + inputname + '/eda3/', createImagesFlag, dropColumns)

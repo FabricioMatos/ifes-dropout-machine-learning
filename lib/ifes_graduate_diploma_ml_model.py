@@ -95,7 +95,7 @@ def trainAndSaveLRModel(X_train, Y_train, outputFileNameForModel):
 
     rescaledX = rescaleData(X_train)
 
-    # From the EDA4 we found:
+    # From the EDA3 we found:
     # Best: 0.807229 using {'C': 0.001}        
     model = LogisticRegression(C=0.001)
     

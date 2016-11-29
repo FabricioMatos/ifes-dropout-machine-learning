@@ -51,6 +51,7 @@ def dataCleansing(dataframe):
     #axis: 0 for rows and 1 for columns
     dataframe.drop('hash_cod_matricula', axis=1, inplace=True)
     dataframe.drop('cep', axis=1, inplace=True)
+    dataframe.drop('desc_curso', axis=1, inplace=True)
 
     #replace NaN with 0
     dataframe.fillna(value=0, inplace=True)
@@ -213,6 +214,10 @@ def trainStudentDropoutPrediction(inputFilePath, outputFileNameForModel):
 
     # train an Logistic Regression model and save it to outputFileNameForModel
     trainedModel = trainAndSaveLRModel(X_train, Y_train, outputFileNameForModel)
+    
+    #debug only
+    #trainedModel = joblib.load(outputFileNameForModel)
+    
     
     #test the model accuracy with the test dataset X_validation
     predictions = predict(trainedModel, X_validation)
